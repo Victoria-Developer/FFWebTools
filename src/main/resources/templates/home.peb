@@ -1,0 +1,2 @@
+{% include "navigation" %}
+<img src="/images/seal_of_approvement.jpg"></img>
