@@ -1,0 +1,3 @@
+{% include "navigation" %}
+<p> beatokaine@gmail.com<p>
+<img src="/images/net_blinov.webp"></img>

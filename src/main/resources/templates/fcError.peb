@@ -1,0 +1,6 @@
+<html>
+{% include "navigation" %}
+	<body>
+		No Fc found, only horni Allan, beware of Miqo'te...
+	</body>
+</html>
