@@ -1,5 +1,8 @@
 package webapp;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fcParsing.Character;
 import fcParsing.*;
 import optimalRoutes.Calculator;
@@ -52,7 +55,54 @@ public class App {
         return "optimalRoute";
     }
 
+    @PostMapping(value = "/optimalRoute", params = {"inputLogs"},
+            produces = {"application/json"})
+    public @ResponseBody
+    List<LogInfo>
+    parseInput(@Validated @RequestParam(name = "inputLogs") String inputLogs) {
+        return ChatLogParser.parseCoordinate(inputLogs);
+    }
+
     @PostMapping(value = "/optimalRoute", produces = {"application/json"})
+    public @ResponseBody
+    String
+    calculateRoute(@Validated @RequestParam(name = "editedLogs")
+                           String editedCoordinates) throws JsonProcessingException {
+        //sort by enums every time
+        //remove all teleports
+        ObjectMapper mapper = new ObjectMapper();
+        List<LogInfo> editedCoordinatesList =
+                mapper.readValue(editedCoordinates, new TypeReference<>() {
+                });
+        JSONArray json = new JSONArray();
+
+        Map<LOCATION, LinkedList<LogInfo>> sortedMap =
+                Calculator.sortByEnums(editedCoordinatesList);
+
+        sortedMap.forEach((location, logInfos) -> {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream inputStream = cl.getResourceAsStream("static" + location.getFileName());
+            BufferedImage map = null;
+            try {
+                map = ImageIO.read(inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            LinkedList<LogInfo> copy = new LinkedList<>(logInfos);
+            Calculator.checkSimilarPoints(copy);
+            List<LinkedList<LogInfo>> sortedData = Calculator.getShortestRoute(location, copy);
+            Calculator.calculateInGamePoints(map, sortedData);
+
+            JSONObject o = new JSONObject()
+                    .put("logs", JSONObject.valueToString(sortedData))
+                    .put("imageSrc", location.getFileName());
+            json.put(o);
+        });
+
+        return json.toString();
+    }
+
+    /*@PostMapping(value = "/optimalRoute", produces = {"application/json"})
     public @ResponseBody
     String
     calculateOptimalRoute(@Validated @RequestParam(name = "inputLogs") String inputLogs) {
@@ -81,7 +131,7 @@ public class App {
         });
 
         return json.toString();
-    }
+    }*/
 
     @GetMapping("/fcSearch")
     public String fcNameForm() {
@@ -140,27 +190,26 @@ public class App {
 
     @RequestMapping(value = "/fcMembers", method = RequestMethod.GET, params = {"parseId"})
     public @ResponseBody
-    String parseCharacters(@RequestParam("parseId") Integer parseId,
-                           @Validated @ModelAttribute(name = "characters")
-                                   LinkedList<Character> charactersList,
-                           @Validated @ModelAttribute(name = "formData")
-                                   FormData formData,
-                           Model model) {
-        JSONObject o = new JSONObject();
+    Map<String, Object> parseCharacters(@RequestParam("parseId") Integer parseId,
+                                        @Validated @ModelAttribute(name = "characters")
+                                                LinkedList<Character> charactersList,
+                                        @Validated @ModelAttribute(name = "formData")
+                                                FormData formData,
+                                        Model model) {
+        Map<String, Object> map = new HashMap<>();
         try {
             PARSE_KEY parseKey = PARSE_KEY.values()[parseId];
             formData.getParsedByKeys().replace(parseKey, true);
             HtmlParser.parseCharacters(charactersList, parseKey);
             SORTING relatedSorting = Arrays.stream(SORTING.values())
                     .filter(sorting -> sorting.getParseKey() == parseKey).findFirst().get();
-            o.put("charactersList", JSONObject.valueToString(charactersList))
-                    .put("relatedSortingId", sortings.indexOf(relatedSorting));
+            map.put("charactersList", JSONObject.valueToString(charactersList));
+            map.put("relatedSortingId", sortings.indexOf(relatedSorting));
         } catch (Exception ignored) {
         }
 
         model.addAttribute("characters", charactersList);
-
-        return o.toString();
+        return map;
     }
 
 }

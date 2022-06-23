@@ -38,7 +38,6 @@ public enum LOCATION {
         this.fileName = fileName;
     }
 
-    @JsonValue
     public String getKey() {
         return key;
     }

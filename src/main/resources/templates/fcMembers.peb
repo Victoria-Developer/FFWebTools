@@ -2,23 +2,11 @@
 <html lang="en">
 <meta charset="ISO-8859-1">
 <title>Fc members</title>
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js">
-    </script>
-
+<link rel="stylesheet" href="/css/pageStyle.css">
 <style>
-html, body {
-max-width: max-content;
-margin: auto;
-}
-
-table, td{
-border: 1px solid;
-}
-
 .characterInfoPanel{
 display:none;
 }
-
 </style>
 <body>
 {% include "navigation" %}
@@ -40,7 +28,6 @@ display:none;
  isDisabled={{ formData.isSelectMethodDisabled()}}></p>
 </form>
 
-
 {# @pebvariable name="parseEnums" type="new LinkedList<fcParsing.PARSE_KEY>" #}
 <form action="/fcMembers" name ="parseCheck" method="get"
 id ="selectBoxFormId" class="selectBoxForm">
@@ -54,9 +41,10 @@ id ="selectBoxFormId" class="selectBoxForm">
         <br>
     {% endblock %}
 {% endfor %}
-<p><button type="submit" class="submitParse"
-isDisabled={{ formData.isParseDisabled() }}>Submit parse keys</button></p>
+<p><input type="submit" value="Submit parsing" class="submitParse"
+isDisabled={{ formData.isParseDisabled() }}></p>
 </form>
+<div>
 {# @pebvariable name="characters" type="Linkedlist<fcParsing.Character>" #}
 <table class="charactersTable" id='charactersTableId'>
     <tbody id="tb">
@@ -73,13 +61,13 @@ isDisabled={{ formData.isParseDisabled() }}>Submit parse keys</button></p>
            <table>
            <p>Capped jobs number: {{ character.getCappedJobsNumber() }}</p>
             {% for job in jobEnums %}
-                {% block jobBlock %}
+            {% block jobBlock %}
                 <tr>
                  <td>{{ job.jobString }}</td>
                  <td>{{ character.jobs.get(job) }}</td>
                  </tr>
             {% endblock %}
-            {% endfor %}
+        {% endfor %}
            </table>
            {% block otherInfoBlock %}
            <p>Minions number: {{ character.getMinionsAmount() }}</p>
@@ -93,149 +81,15 @@ isDisabled={{ formData.isParseDisabled() }}>Submit parse keys</button></p>
     {% endfor %}
     </tbody>
 </table>
+</div>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/characterInfoTablePopulation.js"></script>
+<script type="text/javascript" src="/js/settingsInit.js"></script>
+<script type="text/javascript" src="/js/submitAjaxCharactersListCall.js"></script>
 <script type="text/javascript">
-    function setCharacterInfoVisible(buttonSource){
-       var panel = buttonSource.next('.characterInfoPanel');
-       var isHidden = JSON.parse(buttonSource.val());
-       buttonSource.text(isHidden ? 'Show' : 'Hide');
-       buttonSource.val(!isHidden);
-       panel.toggle();
-    }
-
-    $(document).ready(function() {
-    $(".submitSelect").on('click', function (e){
-        e.preventDefault();
-        var id = $('#sortingMethods').val();
-        if(id == null) {
-        alert("Choose sort method, please.");
-        return;
-        }
-        callAjax({'selectedMethod' : id})
-         .done(function(response){
-            fillTable(response);
-        });
-    });
-
-    $(".submitParse").on('click', function (e){
-        e.preventDefault();
-        var booleanArray = [];
-        $(":checkbox").each(function () {
-               var isChecked = $(this).is(":checked");
-               var isDisabled = $(this).is(":disabled");
-               booleanArray.push(isDisabled);
-               if (isChecked && !isDisabled) {
-                  $(this).attr("disabled", true);
-                  callAjax({'parseId' : $(this).val()})
-                  .done(function(response){
-                  fillTable(JSON.parse(response.charactersList));
-                  $('#sortingDiv_id select option[id="' + response.relatedSortingId + '"]')
-                        .prop('disabled', false);
-                  })
-                  .fail(function(){
-                  $(this).removeAttr("disabled");
-                  });
-                }
-        });
-        if(booleanArray.every(el=> el == true) == true)
-            alert('You parsed all data~');
-    });
-
-    function callAjax(data){
-          return $.ajax({
-          type:'GET',
-          url : "/fcMembers",
-          dataType: 'json',
-          contentType: "application/json",
-          data: data
-        });
-    }
-
-    function fillTable(jsonList){
-        var tableBody = $('#tb');
-        tableBody.empty();
-        for (object in jsonList) {
-            var character = jsonList[object];
-            var newRow = tableBody[0].insertRow();
-            var newCell = newRow.insertCell();
-
-            div = document.createElement("div");
-            characterInfoButton = document.createElement("button");
-            characterInfoButton.innerHTML = 'Show';
-            characterInfoButton.className = "characterInfoButton";
-            characterInfoButton.value = false;
-            characterInfoButton.onclick = function(){
-            setCharacterInfoVisible($(this))
-            };
-            var innerDiv = document.createElement("div");
-            innerDiv.className = "characterInfoPanel";
-
-            innerDiv.appendChild(fillCharacterInfo(character));
-
-            minions = document.createElement("p");
-            minions.innerHTML = "Minions number: " + character.minionsNumber;
-            for (minion in character.minionsList){
-               minions.innerHTML += ", " + character.minionsList[minion]
-            }
-            innerDiv.appendChild(minions);
-
-            mounts = document.createElement("p");
-            mounts.innerHTML = "Mounts number: " + character.mountsNumber;
-            for (mount in character.mountsList){
-               mounts.innerHTML += ", " + character.mountsList[mount]
-            }
-            innerDiv.appendChild(mounts);
-
-            a = document.createElement("a");
-            a.setAttribute("href", character.characterLink);
-            a.text = character.characterName;
-
-            div.appendChild(a);
-            div.appendChild(characterInfoButton);
-            div.appendChild(innerDiv);
-            newCell.appendChild(div);
-            }
-        }
-
-    function fillCharacterInfo(character){
-        p = document.createElement("p");
-        p1 = document.createElement("p");
-        p1.innerHTML = "Capped jobs amount: " + character.cappedJobsNumber;
-        table = document.createElement("table");
-        table.className = "characterInfoTable";
-        var tableBody = document.createElement("tbody");
-        table.appendChild(tableBody);
-        p.appendChild(p1);
-        p.appendChild(table);
-
-        for(j in character.jobs){
-        var newRow = tableBody.insertRow();
-        var jobNameCell = newRow.insertCell();
-        var jobLvlCell = newRow.insertCell();
-        jobNameCell.innerHTML = j;
-        jobLvlCell.innerHTML = character.jobs[j];
-        }
-
-        return p;
-    }
-
-    document.getElementById('sortingMethods').value =
-              {{ sortingMethods.indexOf(formData.getSorting()) }};
-
-    $("#sortingMethods option").each(function () {
-        var isAccessible = $(this).attr("isAccessible");
-        $(this).attr("disabled", !JSON.parse(isAccessible));
-        });
-
-    $("input[type='checkbox']").each(function () {
-    var box = $(this);
-    var value = $(this).attr("isParsed");
-    value = JSON.parse(value);
-    $(this).prop('checked', value);
-    $(this).prop('disabled', value);
-    });
-
-    });
+document.getElementById("sortingMethods").value =
+    {{ sortingMethods.indexOf(formData.getSorting()) }};
 </script>
 </body>
 </html>
