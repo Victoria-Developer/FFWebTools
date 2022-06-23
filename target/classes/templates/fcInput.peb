@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<link rel="stylesheet" href="/css/pageStyle.css">
 <html>
 {% include "navigation" %}
 <head>

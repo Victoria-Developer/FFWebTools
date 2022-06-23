@@ -2,6 +2,7 @@ package optimalRoutes;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Calculator {
 
@@ -57,6 +58,19 @@ public class Calculator {
         double resultX = cellWidth * gameX;
 
         return new DoublePoint(resultX, resultY);
+    }
+
+    public static Map<LOCATION, LinkedList<LogInfo>> sortByEnums(List<LogInfo> commonList){
+        Map<LOCATION, LinkedList<LogInfo>> coordinatesByEnums = new HashMap<>();
+        Arrays.stream(LOCATION.values()).forEach(location -> { //sort by location enum
+            LinkedList<LogInfo> logs = commonList.stream()
+                    .filter(logInfo -> logInfo.getLocation() == location)
+                    .collect(Collectors.filtering(Objects::nonNull,
+                            Collectors.toCollection(LinkedList::new)));
+            if(logs != null && !logs.isEmpty())
+                coordinatesByEnums.put(location, logs);
+        });
+        return coordinatesByEnums;
     }
 
     public static void calculateInGamePoints(BufferedImage image,
@@ -151,6 +165,11 @@ public class Calculator {
             copy.remove(nextNearestLog);
         }
 
+        List<LinkedList<LogInfo>> toRemoveList = sortedData.stream()
+                .filter(list -> list.size() <= 1
+                        && list.getFirst().isTeleport())
+                .collect(Collectors.toList());
+        sortedData.removeAll(toRemoveList);
         return sortedData;
     }
 

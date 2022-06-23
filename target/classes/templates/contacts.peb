@@ -1,3 +1,8 @@
 {% include "navigation" %}
+<link rel="stylesheet" href="/css/pageStyle.css">
+<html>
+<body>
 <p> beatokaine@gmail.com<p>
 <img src="/images/net_blinov.webp"></img>
+</body>
+</html>
