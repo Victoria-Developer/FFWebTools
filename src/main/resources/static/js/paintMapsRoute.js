@@ -1,16 +1,17 @@
 var canvasPanel;
-var lastRouteNumber;
 $(document).ready(function() {
 canvasPanel = document.getElementById("canvasPanel");
 });
 
 function createCanvas(result){
-lastRouteNumber = 0;
+let index = 1;
 for(logsId in result){
 let value = result[logsId];
 let canvas = document.createElement("canvas");
-let logs = drawCanvas(canvas, value);
-console.log(lastRouteNumber);
+let logs = drawCanvas(index, canvas, value);
+for(listInd in logs){
+    index += logs[listInd].length;
+}
 canvasPanel.appendChild(canvas);
 canvas.addEventListener('mousemove', (function (e) {
   drawToolTip(e, canvas, logs);
@@ -25,19 +26,19 @@ function revalidateCanvas(){
 }
 
 
-
 function getLogInfoText(log){
 var inputPoints = log.doublePoint;
 return log.name + ' ' +
 JSON.stringify(inputPoints);
 }
 
-  function drawCanvas(canvas, parsedResult){
+  function drawCanvas(index, canvas, parsedResult){
     var ctx = canvas.getContext("2d");
     var background = new Image();
     background.src = parsedResult.imageSrc;
     var logsList = JSON.parse(parsedResult.logs);
     background.onload = function(){
+        let ind  = index;
         canvas.width = background.width;
         canvas.height = background.height;
         ctx.drawImage(background,0,0);
@@ -51,19 +52,19 @@ JSON.stringify(inputPoints);
          ctx.beginPath();
 
     for (step = 0; step < list.length; step++) {
-        lastRouteNumber ++;
         var log = list[step];
         var scaledPoint1 = log.scaledGamePoint;
         ctx.moveTo(scaledPoint1.x, scaledPoint1.y);
         var src = JSON.parse(log.teleport) == true?
                 "/images/tp.png" : "/images/x_mark.png";
-        addMarker(src, ctx, scaledPoint1.x, scaledPoint1.y, lastRouteNumber, log);
+        addMarker(src, ctx, scaledPoint1.x, scaledPoint1.y, ind, log);
         if(step != list.length - 1){
         var scaledPoint2 = list[step + 1].scaledGamePoint;
         ctx.lineTo(scaledPoint2.x, scaledPoint2.y);
         }
         ctx.stroke();
         console.log(lastRouteNumber);
+        ind++;
     }
     }
     }
@@ -71,6 +72,21 @@ JSON.stringify(inputPoints);
 }
 
 function addOutLineText(ctx, text, x, y){
+    var fontsize = 16;
+    var fontface = 'verdana';
+    var lineHeight = fontsize;
+    ctx.font = fontsize + 'px ' + fontface;
+    var textWidth = ctx.measureText(text).width;
+
+    ctx.strokeStyle = 'dark blue';
+    ctx.fillStyle = '#63E5FF';
+    ctx.beginPath();
+    ctx.arc(x, y, textWidth / text.toString().length, 0, 2 * Math.PI, false);
+    ctx.stroke();
+    ctx.fill();
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
     ctx.strokeStyle = 'black';
     ctx.strokeText(text, x, y)
     ctx.fillStyle = 'white';
