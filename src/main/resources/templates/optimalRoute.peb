@@ -32,7 +32,7 @@ content: attr(title);
 
 <div id="canvasPanel" class="canvasPanel"></div>
 
-<div class="coordinatesPanel" hidden="true">
+<div class="coordinatesPanel">
 <ul class="logsPanel" id="logsPanelId"></ul>
 <p><input type="button" class="logsAdjust" value="New path"></p>
 </div>
