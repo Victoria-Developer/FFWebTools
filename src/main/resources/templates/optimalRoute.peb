@@ -12,23 +12,32 @@ content: attr(title);
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div>
+<div class="wrapper">
+<div class="formDiv">
 <h1>Calculation of optimal route</h1>
 <form action="/optimalRoute" method="post">
     <div>
     <p>Add logs here:</p>
     <textarea class="chatLogs" id="inputLogs" name="inputLogs"></textarea>
     </div>
-    <ul class="logsPanel" id="logsPanelId"></ul>
-    <p><input type="submit" id="submitLogs" value="Start calculation" />
-    <input type="reset" class="logsReset" value="Remove all logs" /></p>
+    <p>
+    <input type="submit" id="submitLogs" value="Start input calculation" disabled>
+    <input type="reset" class="logsReset" value="Reset">
+    <input type="button" class="logsAdd" value="Add" disabled>
+    </p>
 </form>
 <! Hide player name/coordinates (display as tooltip under cursor, not compatible with all browsers):
  <input type = "checkbox" class ="tooltipCheckBox">
 </div>
 
-<div id="canvasPanel"></div>
+<div id="canvasPanel" class="canvasPanel"></div>
 
+<div class="coordinatesPanel" hidden="true">
+<ul class="logsPanel" id="logsPanelId"></ul>
+<p><input type="button" class="logsAdjust" value="New path"></p>
+</div>
+
+</div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="/js/paintMapsRoute.js"></script>

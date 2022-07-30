@@ -64,4 +64,7 @@ function setIncluded(button, li, log){
        responseData.splice(responseData.indexOf(log), 1);
      }
      li.style.background = liColor;
+     //if nothing is selected -> disable "New path" button
+     var isAllRemoved = responseData.length == 0;
+     $('.logsAdjust').attr('disabled', isAllRemoved);
 }

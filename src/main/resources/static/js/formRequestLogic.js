@@ -5,9 +5,11 @@ $("#submitLogs").click(function(e){
     url: "/optimalRoute",
     type: "POST",
     dataType: 'json',
-    data: {"editedLogs" : JSON.stringify(responseData)},
+    data: {"logs" : $("#inputLogs").val()},
     success: function(result){
      var commonList = initLogs(result); //logs without teleports
+     formAreaToDefault();
+     $('.coordinatesPanel').show();
      initLogsPanel(commonList); //full response list with teleports, always temporary variable
      repaint(canvasPanel);
      createCanvas(result);
@@ -31,34 +33,60 @@ function initLogs(result){ //init response data ignoring teleports
     return commonList;
 }
 
+function formAreaToDefault(){
+    $("#inputLogs").val('');
+    resize(document.getElementById("inputLogs"));
+    $('.logsAdjust').attr('disabled', false);
+    $('#submitLogs').attr('disabled', true);
+    $('.logsAdd').attr('disabled', true);
+}
+
 $('.logsReset').click(function(e){
     e.preventDefault();
     responseData = [];
     repaint(document.getElementById('logsPanelId'));
+    $('.coordinatesPanel').hide();
+    repaint(canvasPanel);
+    formAreaToDefault();
 });
 
-
-$('.chatLogs').on('input', function(e){
-    resize(this);
+$('.logsAdd').click(function(e){
     $.ajax({
         url: "/optimalRoute",
         type: "POST",
+        dataType: 'json',
         data: {"inputLogs" : $("#inputLogs").val()},
         success: function(response){
-        let result = JSON.parse(JSON.stringify(response));
-        if(!jQuery.isEmptyObject(result)){
-            if(jQuery.isEmptyObject(responseData))
-                responseData = result;
-            else {
-                for(logId in result){
-                    responseData.push(result[logId]);
-                }
-            }
-            addToLogsPanel(result);
-        }
-  }});
-  this.value = '';
-  resize(this);
+         formAreaToDefault();
+         if(jQuery.isEmptyObject(response)) return;
+         let result = JSON.parse(JSON.stringify(response));
+         for(logId in result){
+             responseData.push(result[logId]);
+         }
+         addToLogsPanel(result);
+      }});
+});
+
+$('.logsAdjust').click(function(e){
+    $.ajax({
+        url: "/optimalRoute",
+        type: "POST",
+        dataType: 'json',
+        data: {"editedLogs" : JSON.stringify(responseData)},
+        success: function(result){
+         var commonList = initLogs(result);
+         initLogsPanel(commonList);
+         repaint(canvasPanel);
+         createCanvas(result);
+      }});
+});
+
+$('.chatLogs').on('input', function(e){
+    resize(this);
+    if(/^\s*$/.test($(this).val())) return;
+    if(!jQuery.isEmptyObject(responseData))
+        $('.logsAdd').attr('disabled', false);
+    $('#submitLogs').attr('disabled', false);
 });
 
 $('.chatLogs').on('keydown', function(e){
@@ -71,8 +99,8 @@ $('.chatLogs').on('keydown', function(e){
 });
 
 function resize(textArea){
-textArea.style.height = '';
-textArea.style.height = textArea.scrollHeight +'px';
+ textArea.style.height = '';
+ textArea.style.height = textArea.scrollHeight +'px';
 }
 
 /*

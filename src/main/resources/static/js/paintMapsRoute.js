@@ -63,7 +63,6 @@ JSON.stringify(inputPoints);
         ctx.lineTo(scaledPoint2.x, scaledPoint2.y);
         }
         ctx.stroke();
-        console.log(lastRouteNumber);
         ind++;
     }
     }
