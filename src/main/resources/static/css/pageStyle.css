@@ -98,8 +98,7 @@ resize: vertical;
 }
 
 .wrapper{
-display: flex;
-align-items: center;
+display: inline-flex;
 justify-content: center;
 align-items: flex-start;
 }
@@ -109,21 +108,20 @@ position: sticky;
 position: -webkit-sticky;
 top: 30%;
 overflow: auto;
-min-height: 50vh;
-scroll-behavior: smooth;
+height: 50vh;
 }
 
 .coordinatesPanel{
+display: none;
 position: sticky;
 position: -webkit-sticky;
 top: 40%;
 overflow: auto;
-min-height: 50vh;
-scroll-behavior: smooth;
-display: flex;
-align-items: center;
-justify-content: center;
-align-items: flex-start;
+height: 50vh;
+}
+
+.canvasPanel{
+flex-shrink: 3;
 }
 
 .logsPanel {
