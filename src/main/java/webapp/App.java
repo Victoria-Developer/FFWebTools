@@ -40,6 +40,12 @@ public class App {
         SpringApplication.run(App.class, args);
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+
+
     @GetMapping("/")
     public String home() {
         return "home";
@@ -55,6 +61,13 @@ public class App {
         return "optimalRoute";
     }
 
+    @PostMapping(value = "/optimalRoute", params = {"logs"},
+            produces = {"application/json"})
+    public @ResponseBody String calculatePath(@Validated @RequestParam(name = "logs") String changedLogs)
+            throws JsonProcessingException {
+        return calculateRouteAndConvert(ChatLogParser.parseCoordinate(changedLogs));
+    }
+
     @PostMapping(value = "/optimalRoute", params = {"inputLogs"},
             produces = {"application/json"})
     public @ResponseBody
@@ -63,17 +76,24 @@ public class App {
         return ChatLogParser.parseCoordinate(inputLogs);
     }
 
-    @PostMapping(value = "/optimalRoute", produces = {"application/json"})
+    @PostMapping(value = "/optimalRoute", params = {"editedLogs"},
+            produces = {"application/json"})
     public @ResponseBody
     String
-    calculateRoute(@Validated @RequestParam(name = "editedLogs")
+    adjustRoute(@Validated @RequestParam(name = "editedLogs")
                            String editedCoordinates) throws JsonProcessingException {
         //sort by enums every time
         //remove all teleports
+        return calculateRouteAndConvert(convertStringToList(editedCoordinates));
+    }
+
+    private List<LogInfo> convertStringToList(String editedCoordinates) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        List<LogInfo> editedCoordinatesList =
-                mapper.readValue(editedCoordinates, new TypeReference<>() {
-                });
+        return mapper.readValue(editedCoordinates, new TypeReference<>() {
+        });
+    }
+
+    private String calculateRouteAndConvert(List<LogInfo> editedCoordinatesList) throws JsonProcessingException {
         JSONArray json = new JSONArray();
 
         Map<LOCATION, LinkedList<LogInfo>> sortedMap =

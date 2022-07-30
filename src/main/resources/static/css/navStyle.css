@@ -4,7 +4,10 @@
         display: inline-block;
         text-align:center;
         paddling:0;
-        width: 100%
+        width: 100%;
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
     }
 ul{
     list-style-type: none;
