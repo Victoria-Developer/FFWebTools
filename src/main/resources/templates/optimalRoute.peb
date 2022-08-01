@@ -18,7 +18,9 @@ content: attr(title);
 <form action="/optimalRoute" method="post">
     <div>
     <p>Add logs here:</p>
+    <div class="textAreaDiv">
     <textarea class="chatLogs" id="inputLogs" name="inputLogs"></textarea>
+    </div>
     </div>
     <p>
     <input type="submit" id="submitLogs" value="Start input calculation" disabled>
@@ -32,11 +34,11 @@ content: attr(title);
 
 <div id="canvasPanel" class="canvasPanel"></div>
 
+<div class="logsWrapperPanel">
 <div class="coordinatesPanel">
 <ul class="logsPanel" id="logsPanelId"></ul>
-<p><input type="button" class="logsAdjust" value="New path"></p>
 </div>
-
+<p><input type="button" class="logsAdjust" value="New path"></p>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
