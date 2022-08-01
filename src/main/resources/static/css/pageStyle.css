@@ -107,15 +107,21 @@ align-items: flex-start;
 position: sticky;
 position: -webkit-sticky;
 top: 30%;
-overflow: auto;
-height: 50vh;
 }
 
-.coordinatesPanel{
+.textAreaDiv{
+overflow: auto;
+height: 13vh;
+}
+
+.logsWrapperPanel{
 display: none;
 position: sticky;
 position: -webkit-sticky;
 top: 40%;
+}
+
+.coordinatesPanel{
 overflow: auto;
 height: 50vh;
 }

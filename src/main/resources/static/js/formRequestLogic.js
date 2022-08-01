@@ -9,7 +9,7 @@ $("#submitLogs").click(function(e){
     success: function(result){
      var commonList = initLogs(result); //logs without teleports
      formAreaToDefault();
-     $('.coordinatesPanel').show();
+     $('.logsWrapperPanel').show();
      initLogsPanel(commonList); //full response list with teleports, always temporary variable
      repaint(canvasPanel);
      createCanvas(result);
@@ -45,7 +45,7 @@ $('.logsReset').click(function(e){
     e.preventDefault();
     responseData = [];
     repaint(document.getElementById('logsPanelId'));
-    $('.coordinatesPanel').hide();
+    $('.logsWrapperPanel').hide();
     repaint(canvasPanel);
     formAreaToDefault();
 });
