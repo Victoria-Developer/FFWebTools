@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class ChatLogParser {
 
-    public static Map<LOCATION, LinkedList<LogInfo>> getLocationsMap(String s) {
+    /*public static Map<LOCATION, LinkedList<LogInfo>> getLocationsMap(String s) {
         ArrayList<LogInfo> commonList = ChatLogParser.parseCoordinate(s); //get common list
 
         Map<LOCATION, LinkedList<LogInfo>> coordinatesByEnums = new HashMap<>();
@@ -20,7 +20,7 @@ public class ChatLogParser {
                 coordinatesByEnums.put(location, logs);
         });
         return coordinatesByEnums;
-    }
+    }*/
 
     public static ArrayList<LogInfo> parseCoordinate(String input) {
         ArrayList<String> results = findValidSentences(input);
@@ -48,7 +48,7 @@ public class ChatLogParser {
     }
 
     private static String parsePlayerName(String nameSource) {
-        Pattern namePattern = Pattern.compile("^[a-zA-Z ]+(?!\\)$)");
+        Pattern namePattern = Pattern.compile("^[a-zA-Z -']+(?!\\)$)");
         Matcher nameMatcher = namePattern.matcher(nameSource);
         String name = null;
         while (nameMatcher.find()) {
