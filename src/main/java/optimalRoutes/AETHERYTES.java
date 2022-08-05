@@ -21,7 +21,28 @@ public enum AETHERYTES {
 
     ANAGNORISIS("Anagnorisis", new DoublePoint(24.6, 24.0)),
     THE_TWELVE_WONDERS("The Twelve Wonders ", new DoublePoint(8.3, 32.3)),
-    POIETEN_OIKOS("Poieten Oikos", new DoublePoint(10.8, 17.0));
+    POIETEN_OIKOS("Poieten Oikos", new DoublePoint(10.8, 17.0)),
+
+    FORT_JOBB("Fort Jobb", new DoublePoint(36.7, 21.3)),
+    THE_OSTALL_IMPERATIVE("The Ostall Imperative", new DoublePoint(6.7, 16.8)),
+
+    LYDRA_LRAN("Lydha Lran", new DoublePoint(14.2, 31.6)),
+    PLA_ENNI("Pla Enni", new DoublePoint(19.4, 4.2)),
+    WOLEKDORF("Wolekdorf", new DoublePoint(29.4, 7.3)),
+
+    THE_INN_AT_JOURNEYS_HEAD("The Inn at Journey's Head", new DoublePoint(29.6, 27.5)),
+    MORD_SOUQ("Mord Souq", new DoublePoint(26.5, 17.2)),
+    TWINE("Twine", new DoublePoint(11.4, 17.1)),
+
+    THE_ONDO_CUPS("The Ondo Cups", new DoublePoint(32.6, 17.6)),
+    THE_MACARENSES_ANGLE("The Macarenses Angle", new DoublePoint(19.1, 25.5)),
+
+    SLITHERBOUGH("Slitherbough", new DoublePoint(19.4, 27.4)),
+    FANOW("Fanow", new DoublePoint(29.1, 17.8)),
+
+    STILLTIDE("Stilltide", new DoublePoint(34.4, 27.7)),
+    WRIGHT("Wright", new DoublePoint(17.1, 29.3)),
+    TOMRA("Tomra", new DoublePoint(12.7, 8.4));
 
     private final String name;
     private final DoublePoint coordinates;
