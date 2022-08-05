@@ -27,7 +27,27 @@ public enum LOCATION {
     ELPIS("Elpis",
             new AETHERYTES[]{AETHERYTES.ANAGNORISIS, AETHERYTES.THE_TWELVE_WONDERS,
                     AETHERYTES.POIETEN_OIKOS},
-            "/images/elpis.jpg");
+            "/images/elpis.jpg"),
+
+    LAKELAND("Lakeland",
+            new AETHERYTES[]{AETHERYTES.FORT_JOBB, AETHERYTES.THE_OSTALL_IMPERATIVE},
+            "/images/lakeland.jpg"),
+    IL_MHEG("Il Mheg",
+            new AETHERYTES[]{AETHERYTES.LYDRA_LRAN, AETHERYTES.PLA_ENNI, AETHERYTES.WOLEKDORF},
+            "/images/il_mheg.jpg"),
+    AMH_ARAENG("Amh Araeng",
+            new AETHERYTES[]{AETHERYTES.THE_INN_AT_JOURNEYS_HEAD,
+                    AETHERYTES.MORD_SOUQ, AETHERYTES.TWINE}, "/images/amh_araeng.jpg"),
+    THE_TEMPEST("The Tempest",
+            new AETHERYTES[]{AETHERYTES.THE_ONDO_CUPS, AETHERYTES.THE_MACARENSES_ANGLE},
+            "/images/the_tempest.jpg"),
+    THE_RAKTIKA_GREATWOOD("The Rak'tika Greatwood",
+            new AETHERYTES[]{AETHERYTES.SLITHERBOUGH, AETHERYTES.FANOW},
+            "/images/the_raktika_greatwood.jpg"),
+    KHOLUSIA("Kholusia",
+            new AETHERYTES[]{AETHERYTES.STILLTIDE, AETHERYTES.WRIGHT, AETHERYTES.TOMRA},
+            "/images/kholusia.jpg");
+
 
     private final String key, fileName;
     private final AETHERYTES[] aetherytes;
