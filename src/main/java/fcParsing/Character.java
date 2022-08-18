@@ -1,6 +1,7 @@
 package fcParsing;
 
 import webapp.App;
+import webapp.FcParserController;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class Character implements Serializable{
         int cid = 0;
 
         cid += jobs.values().stream()
-                .filter(val -> val == App.maxLvl).count();
+                .filter(val -> val == FcParserController.maxLvl).count();
         return cid;
     }
 

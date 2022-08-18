@@ -1,5 +1,5 @@
-<!DOCTYPE HTML>
 <link rel="stylesheet" href="/css/pageStyle.css">
+<link rel="stylesheet" href="/css/inputStyle.css">
 <style>
 canvas:hover::after {
 content: attr(title);

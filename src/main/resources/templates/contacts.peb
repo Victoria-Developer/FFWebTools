@@ -1,10 +1,36 @@
 {% include "navigation" %}
 <link rel="stylesheet" href="/css/pageStyle.css">
+<link rel="stylesheet" href="/css/contactsStyle.css">
 <html>
 <body>
-<p>
-victoriyashalygina@yandex.ru
-<p>
+<div class="contactsWrapper">
 <img src="/images/net_blinov.webp"></img>
+<form action="/contact" method="post">
+<div class="messageFormWrapper">
+<p>Our best call manager is waiting for your purrfect message.</p>
+<div class="input-container">
+
+<input type="text" id="senderName" required pattern="[A-Za-z0-9 ]{1,20}">
+<label for="senderName">Your name</label>
+</div>
+
+<div class="input-container">
+<input type="email" name="emailFrom" id="emailFrom" required>
+<label for="emailFrom">Email</label>
+</div>
+
+<div class="input-container">
+<textarea name="message" id="message" required></textarea>
+<label for="message">Message</label>
+</div>
+
+<p><input type="submit" class="mailSubmit" value="Send message">
+<input type="reset" class="mailFormReset" value="Reset">
+</div>
+</form>
+</div>
+
 </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/message.js"></script>
 </html>

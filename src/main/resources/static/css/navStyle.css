@@ -1,22 +1,24 @@
-.navigation {
+.top-navigation {
         background: #A16B4C;
-        margin:0 0 0 0;
+        margin: 0 0 0 0;
         display: inline-block;
-        text-align:center;
-        paddling:0;
+        text-align: center;
+        paddling: 0;
         width: 100%;
         position: sticky;
-        position: -webkit-sticky;
         top: 0;
     }
-ul{
+
+.top-navigation ul{
     list-style-type: none;
     margin:0;
-    }
-li{
-display:inline
 }
-li a {
+
+.top-navigation li{
+  display:inline
+}
+
+.top-navigation li a {
   display:inline-block;
   list-style-type: none;
   color: #000000;
@@ -24,10 +26,8 @@ li a {
   text-decoration: none;
   text-align: center;
 }
-li a:hover {
+
+.top-navigation li a:hover {
   background-color: #555;
   color: white;
-}
-.active {
-  background-color: #4CAF50;
 }

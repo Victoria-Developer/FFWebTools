@@ -3,31 +3,17 @@ package optimalRoutes;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class ChatLogParser {
 
-    /*public static Map<LOCATION, LinkedList<LogInfo>> getLocationsMap(String s) {
-        ArrayList<LogInfo> commonList = ChatLogParser.parseCoordinate(s); //get common list
-
-        Map<LOCATION, LinkedList<LogInfo>> coordinatesByEnums = new HashMap<>();
-        Arrays.stream(LOCATION.values()).forEach(location -> { //sort by location enum
-            LinkedList<LogInfo> logs = commonList.stream()
-                    .filter(logInfo -> logInfo.getLocation() == location)
-                    .collect(Collectors.filtering(Objects::nonNull,
-                            Collectors.toCollection(LinkedList::new)));
-            if(logs != null && !logs.isEmpty())
-                coordinatesByEnums.put(location, logs);
-        });
-        return coordinatesByEnums;
-    }*/
-
-    public static ArrayList<LogInfo> parseCoordinate(String input) {
+    public static ArrayList<LogInfo> parseCoordinates(String input) {
         ArrayList<String> results = findValidSentences(input);
         ArrayList<LogInfo> logsInfo = new ArrayList<>();
         results.forEach(result -> {
             LogInfo log = parseLogInfo(result);
-            if(log.getLocation()!= null) logsInfo.add(log);
+            LOCATION location = log.getLocation();
+            if (location != null)
+                logsInfo.add(log);
         });
         return logsInfo;
     }
