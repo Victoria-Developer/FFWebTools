@@ -8,11 +8,11 @@ public enum SORTING {
     MINIONS("minions", list -> {
         list.sort(Comparator.comparingInt(Character::getMinionsNumber).reversed());
         return list;
-    }, PARSE_KEY.MINIONS),
+    }, PARSE_KEY.MINIONS_NUMBER),
     MOUNTS("mounts", list -> {
         list.sort(Comparator.comparingInt(Character::getMountsNumber).reversed());
         return list;
-    }, PARSE_KEY.MOUNTS),
+    }, PARSE_KEY.MOUNTS_NUMBER),
     CAPPED_JOBS("capped jobs", list -> {
         list.sort(Comparator.comparingInt(Character::getCappedJobsNumber).reversed());
         return list;

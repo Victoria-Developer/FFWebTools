@@ -35,8 +35,8 @@ public class HtmlParser {
                                                         PARSE_KEY parseKey) {
         Consumer<Character> consumer = null;
         switch (parseKey) {
-            case MINIONS -> consumer = HtmlParser::parseMinionsNumber;
-            case MOUNTS -> consumer = HtmlParser::parseMountsNumber;
+            case MINIONS_NUMBER -> consumer = HtmlParser::parseMinionsNumber;
+            case MOUNTS_NUMBER -> consumer = HtmlParser::parseMountsNumber;
             case CAPPED_JOBS -> consumer = HtmlParser::parseJobs;
         }
         characters.forEach(consumer);

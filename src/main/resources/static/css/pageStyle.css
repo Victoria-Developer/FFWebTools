@@ -2,29 +2,51 @@ body{
   text-align: center;
   background:#DAB187;
   margin: 0 0 0 0;
+  font: 1.2rem/1.4 Georgia, serif;
 }
 
-input[type=text]{
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: 3px solid #ccc;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  outline: none;
-}
-
-input[type=text]:focus {
-  border: 3px solid #555;
-}
-
-input[type=submit], input[type=reset], input[type=button]{
+input[type=submit], input[type=reset], input[type=button], button{
   color: white;
   cursor: pointer;
   padding: 7px 10px;
   margin: 8px 0;
   border: none;
   border-radius: 4px;
+}
+
+.formsClass{
+  display: flex;
+  flex-direction: row;
+  text-align: initial;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.sortingForm{
+  margin-right: 30px;
+}
+
+.characterInfoPanel{
+  display: none;
+}
+
+.mapRouteTutorial, .fcParsingTutorial{
+  background-color: #ae98aa;
+}
+
+.mapRouteTutorial:hover, .fcParsingTutorial:hover{
+  background-color: #957898;
+}
+
+.parseButton, .characterInfoButton,
+.mapRouteGoTo, .fcParsingGoTo{
+  background-color: #fca474;
+}
+
+.parseButton:hover, .characterInfoButton:hover,
+.mapRouteGoTo:hover, .fcParsingGoTo:hover{
+  background-color: #f9906f;
 }
 
 .logsAdd{
@@ -86,7 +108,7 @@ table {
 th, td {
   padding: 8px;
   border-bottom: 1px solid #ddd;
-  text-align: center
+  text-align: center;
 }
 
 tr:hover {
@@ -142,7 +164,7 @@ flex-shrink: 3;
 
 .logsLi  {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: space-between;
   color: "dark blue";
   font-weight: bold;
@@ -156,8 +178,9 @@ flex-shrink: 3;
       0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
 
-.logsSpan{
-    /*text-align: left;*/
-}
+
+
+
+
 
 
