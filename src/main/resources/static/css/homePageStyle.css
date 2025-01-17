@@ -10,7 +10,7 @@ align-items: flex-start;
 margin-top: 5%;
 }
 
-.mapRouteDiv, .fcSearchDiv{
+.mapRouteDiv{
     height: 30rem;
     width: 60%;
 }
