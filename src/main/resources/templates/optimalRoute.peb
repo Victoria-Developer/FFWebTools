@@ -8,24 +8,24 @@ content: attr(title);
 {% include "navigation" %}
 <html>
 <head>
-    <title>FF14 Optimal Routes</title>
+    <title>Routes</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div class="wrapper">
 <div class="formDiv">
-<h1>Calculation of optimal route</h1>
+<h1>Optimal route</h1>
 <form action="/optimalRoute" method="post">
     <div>
-    <p>Add logs here:</p>
+    <p>Paste coordinates here:</p>
     <div class="textAreaDiv">
     <textarea class="chatLogs" id="inputLogs" name="inputLogs"></textarea>
     </div>
     </div>
     <p>
-    <input type="submit" id="submitLogs" value="Start input calculation" disabled>
+    <input type="submit" id="submitLogs" value="Calculate">
     <input type="reset" class="logsReset" value="Reset">
-    <input type="button" class="logsAdd" value="Add" disabled>
+    <input type="button" class="logsAdd" value="Add logs">
     </p>
 </form>
 <! Hide player name/coordinates (display as tooltip under cursor, not compatible with all browsers):
@@ -38,7 +38,6 @@ content: attr(title);
 <div class="coordinatesPanel">
 <ul class="logsPanel" id="logsPanelId"></ul>
 </div>
-<p><input type="button" class="logsAdjust" value="New path"></p>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>

@@ -7,7 +7,6 @@
     <ul>
      <li> <a href="/" class="home">Home</a> </li>
      <li> <a href="/optimalRoute" class="mapRoute">Map route</a> </li>
-     <li> <a href="/fcSearch" class="fcParsing">Fc parsing</a> </li>
      <li> <a href="/contact" class="contact">Contact</a> </li>
     </ul>
 </nav>

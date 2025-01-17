@@ -1,112 +1,115 @@
-var responseData;
-$("#submitLogs").click(function(e){
-  e.preventDefault();
-  $.ajax({
-    url: "/optimalRoute",
-    type: "POST",
-    dataType: 'json',
-    data: {"logs" : $("#inputLogs").val()},
-    success: function(result){
-     var commonList = initLogs(result); //logs without teleports
-     formAreaToDefault();
-     $('.logsWrapperPanel').show();
-     initLogsPanel(commonList); //full response list with teleports, always temporary variable
-     repaint(canvasPanel);
-     createCanvas(result);
-  }});
+var logsMap = new Map();
+var logsToRemoveMap = new Map();
+
+function addLogs(response){
+    let addedLogs = new Map();
+    response.forEach(item => {
+        let area = JSON.parse(item.area);
+        let logs = JSON.parse(item.logs);
+
+        let existingArea = Array.from(logsMap.keys()).find(key => key.name === area.name);
+
+        if (existingArea) {
+            let existingLogs = logsMap.get(existingArea);
+            logsMap.set(existingArea, [...existingLogs, ...logs]);
+        } else {
+            logsMap.set(area, logs);
+        }
+        addedLogs.set(area, logs);
+    });
+
+    console.log('Updated logsMap:', logsMap);
+    return addedLogs;
+}
+
+$("#submitLogs").click(function(e) {
+    e.preventDefault();
+
+    const serializedLogs = {};
+
+    // Remove unwanted logs from logsMap
+    logsMap.forEach((logs, area) => {
+        if (logsToRemoveMap.has(area)) {
+            const logsToRemove = logsToRemoveMap.get(area);
+            logs = logs.filter(log => !logsToRemove.some(logToRemove => JSON.stringify(log) === JSON.stringify(logToRemove)));
+        }
+        logs = logs.filter(log => log.teleport == false);
+        serializedLogs[JSON.stringify(area)] = logs;
+    });
+
+    $.ajax({
+        url: "/optimalRoute/calculate",
+        type: "POST",
+        dataType: 'json',
+        data: {
+            "logs" : JSON.stringify(serializedLogs)
+        },
+        success: function(result) {
+            formAreaToDefault();
+            if (jQuery.isEmptyObject(result)) return;
+
+            logsMap.clear();
+            for(id in result){
+                let area = JSON.parse(result[id].area);
+                let logs = JSON.parse(result[id].logs);
+                logsMap.set(area, logs);
+            }
+
+            console.log('Calculated logsMap:', logsMap);
+            initLogsPanel(logsMap);
+            drawCanvas(logsMap);
+        }
+    });
 });
 
-function initLogs(result){ //init response data ignoring teleports
-    responseData = [];
-    commonList = [];
-    for(listId in result){
-        let list = JSON.parse(result[listId].logs);
-        for(linkedListId in list){
-            let linkedList = list[linkedListId];
-            for (logId in linkedList){
-                if(linkedList[logId].teleport == false)
-                    responseData.push(linkedList[logId]);
-                commonList.push(linkedList[logId]);
-            }
-        }
-    }
-    return commonList;
-}
-
-function formAreaToDefault(){
-    $("#inputLogs").val('');
-    resize(document.getElementById("inputLogs"));
-    $('.logsAdjust').attr('disabled', false);
-    $('#submitLogs').attr('disabled', true);
-    $('.logsAdd').attr('disabled', true);
-}
-
-$('.logsReset').click(function(e){
+$('.logsReset').click(function(e) {
     e.preventDefault();
-    responseData = [];
+    logsMap = {};
     repaint(document.getElementById('logsPanelId'));
     $('.logsWrapperPanel').hide();
     repaint(canvasPanel);
     formAreaToDefault();
 });
 
-$('.logsAdd').click(function(e){
+$('.logsAdd').click(function(e) {
     $.ajax({
-        url: "/optimalRoute",
+        url: "/optimalRoute/parse",
         type: "POST",
         dataType: 'json',
-        data: {"inputLogs" : $("#inputLogs").val()},
-        success: function(response){
-         formAreaToDefault();
-         if(jQuery.isEmptyObject(response)) return;
-         let result = JSON.parse(JSON.stringify(response));
-         for(logId in result){
-             responseData.push(result[logId]);
-         }
-         addToLogsPanel(result);
-      }});
+        data: {
+            "inputLogs": $("#inputLogs").val()
+        },
+        success: function(response) {
+            formAreaToDefault();
+            if (jQuery.isEmptyObject(response)) return;
+            $('.logsWrapperPanel').show();
+            let addedLogs = addLogs(response);
+            addToLogsPanel(addedLogs);
+        }
+    });
 });
 
-$('.logsAdjust').click(function(e){
-    $.ajax({
-        url: "/optimalRoute",
-        type: "POST",
-        dataType: 'json',
-        data: {"editedLogs" : JSON.stringify(responseData)},
-        success: function(result){
-         var commonList = initLogs(result);
-         initLogsPanel(commonList);
-         repaint(canvasPanel);
-         createCanvas(result);
-      }});
-});
-
-$('.chatLogs').on('input', function(e){
-    resize(this);
-    if(/^\s*$/.test($(this).val())) return;
-    if(!jQuery.isEmptyObject(responseData))
-        $('.logsAdd').attr('disabled', false);
-    $('#submitLogs').attr('disabled', false);
-});
-
-$('.chatLogs').on('keydown', function(e){
-  var ctrl = e.ctrlKey ? e.ctrlKey : ((e.keyCode === 17) ? true : false);
-  if (e.keyCode === 86 && ctrl || e.keyCode === 67 && ctrl || e.keyCode === 88 && ctrl) {
-    return true;
-  } else {
-    return false;
-  }
-});
-
-function resize(textArea){
- textArea.style.height = '';
- textArea.style.height = textArea.scrollHeight +'px';
+function formAreaToDefault() {
+    $("#inputLogs").val('');
+    resize(document.getElementById("inputLogs"));
 }
 
-/*
-var isTooltipEnabled = false;
-$(".tooltipCheckBox").click(function(e){
-isTooltipEnabled = !isTooltipEnabled;
-revalidateCanvas();
+
+$('.chatLogs').on('input', function(e) {
+    resize(this);
+    if (/^\s*$/.test($(this).val())) return;
 });
-*/
+
+$('.chatLogs').on('keydown', function(e) {
+    var ctrl = e.ctrlKey ? e.ctrlKey : ((e.keyCode === 17) ? true : false);
+    if (e.keyCode === 86 && ctrl || e.keyCode === 67 && ctrl || e.keyCode === 88 && ctrl) {
+        return true;
+    } else {
+        return false;
+    }
+});
+
+function resize(textArea) {
+    textArea.style.height = '';
+    textArea.style.height = textArea.scrollHeight + 'px';
+}
