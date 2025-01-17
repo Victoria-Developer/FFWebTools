@@ -52,26 +52,8 @@ function addCheckBox(area, log, li) {
     button.setAttribute('checked', true);
     button.setAttribute('class', 'liCheck');
     button.addEventListener('click', (function(e) {
-        let shouldRemove = toggleCoordinate(area, log);
+        let shouldRemove = toggleLog(area, log);
         li.style.background = shouldRemove ? "grey" : li.getAttribute('defaultColor');
     }));
     return button;
-}
-
-function toggleCoordinate(area, log) {
-    let shouldRemove = true;
-    if (logsToRemoveMap.has(area)) {
-        let logs = logsToRemoveMap.get(area);
-        let logIndex = logs.findIndex(existingLog => JSON.stringify(existingLog) === JSON.stringify(log));
-        if (logIndex !== -1) {
-            logs.splice(logIndex, 1);
-            shouldRemove = false;
-        } else {
-            logs.push(log);
-        }
-        logsToRemoveMap.set(area, logs);
-    } else {
-        logsToRemoveMap.set(area, [log]);
-    }
-    return shouldRemove;
 }
