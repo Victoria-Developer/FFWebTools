@@ -13,6 +13,13 @@ import java.util.*;
 @Repository
 public class FFDataRepository {
 
+    public Area findAreaByName(String areaName){
+        return fetchAreasData().stream()
+                .filter(a -> a.getName().equals(areaName))
+                .findFirst()
+                .orElse(null);
+    }
+
     public List<Area> fetchAreasData() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -22,10 +29,7 @@ public class FFDataRepository {
             });
             areas.stream()
                     .flatMap(area -> Arrays.stream(area.getTeleports()))
-                    .forEach(t -> {
-                        t.setFilePath("tp.png");
-                        t.setTeleport(true);
-                    });
+                    .forEach(t -> t.setTeleport(true));
             return areas;
         } catch (IOException e) {
             System.out.println(e.getMessage());

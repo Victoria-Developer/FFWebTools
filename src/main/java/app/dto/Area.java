@@ -9,10 +9,8 @@ public class Area {
 
     public Area(){}
 
-    public Area(String name, Coordinate[] teleports, String fileName) {
+    public void setName(String name) {
         this.name = name;
-        this.teleports = teleports;
-        this.fileName = fileName;
     }
 
     @JsonProperty("name")
@@ -20,9 +18,17 @@ public class Area {
         return name;
     }
 
+    public void setTeleports(Coordinate[] teleports) {
+        this.teleports = teleports;
+    }
+
     @JsonProperty("teleports")
     public Coordinate[] getTeleports() {
         return teleports;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @JsonProperty("fileName")

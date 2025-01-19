@@ -1,25 +1,18 @@
 package app.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Coordinate {
     String name;
-    Point point;
-    String filePath;
+    String areaName;
+    double x;
+    double y;
     boolean isTeleport;
 
     public Coordinate(){}
 
-    public Coordinate(String name, Point point, String filePath, boolean isTeleport) {
+    public Coordinate(String name, double x, double y) {
         this.name = name;
-        this.point = point;
-        this.filePath = filePath;
-        this.isTeleport = isTeleport;
-    }
-
-    public Coordinate(String name, Point point) {
-        this.name = name;
-        this.point = point;
+        this.x = x;
+        this.y = y;
     }
 
     public void setName(String playerName) {
@@ -30,21 +23,28 @@ public class Coordinate {
         return name;
     }
 
-    public void setPoint(Point point) {
-        this.point = point;
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 
-    @JsonProperty("point")
-    public Point getPoint() {
-        return point;
+    public String getAreaName() {
+        return areaName;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setX(double x) {
+        this.x = x;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public double getX() {
+        return x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getY() {
+        return y;
     }
 
     public void setTeleport(boolean teleport) {
@@ -57,6 +57,7 @@ public class Coordinate {
 
     @Override
     public String toString() {
-        return name + " " + point.toString();
+        return name + " " + x + ", " + y;
     }
+
 }

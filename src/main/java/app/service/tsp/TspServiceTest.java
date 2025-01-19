@@ -1,7 +1,6 @@
 package app.service.tsp;
 
 import app.dto.Coordinate;
-import app.dto.Point;
 
 import java.util.*;
 
@@ -11,17 +10,17 @@ public class TspServiceTest {
     private static final double THRESHOLD = 10;
 
     public static void main(String[] args) {
-        Coordinate t1 = new Coordinate("T1", new Point(13.3, 31.1));
-        Coordinate t2 = new Coordinate("T2", new Point(31.7, 18));
+        Coordinate t1 = new Coordinate("T1",13.3, 31.1);
+        Coordinate t2 = new Coordinate("T2", 31.7, 18);
         Coordinate[] teleports = new Coordinate[]{t1, t2};
 
-        Coordinate p1 = new Coordinate("A", new Point(14.9, 26.6));
-        Coordinate p2 = new Coordinate("B", new Point(19.9, 9.5));
-        Coordinate p3 = new Coordinate("C", new Point(28.0, 20.8));
-        Coordinate p4 = new Coordinate("D", new Point(29.4, 29.9));
-        Coordinate p5 = new Coordinate("E", new Point(29.8, 12.1));
-        Coordinate p6 = new Coordinate("F", new Point(20, 29.9));
-        Coordinate p7 = new Coordinate("G", new Point(15, 24));
+        Coordinate p1 = new Coordinate("A",14.9, 26.6);
+        Coordinate p2 = new Coordinate("B", 19.9, 9.5);
+        Coordinate p3 = new Coordinate("C", 28.0, 20.8);
+        Coordinate p4 = new Coordinate("D", 29.4, 29.9);
+        Coordinate p5 = new Coordinate("E", 29.8, 12.1);
+        Coordinate p6 = new Coordinate("F", 20, 29.9);
+        Coordinate p7 = new Coordinate("G",15, 24);
 
         List<Coordinate> playerC = new ArrayList<>(List.of(p1, p2, p3, p4, p5));
         TspServiceTest tspService = new TspServiceTest();
@@ -109,14 +108,14 @@ public class TspServiceTest {
         });
     }
 
-    // Helper method to calculate Euclidean distance between two coordinates
+    // Calculate Euclidean distance between two coordinates
     private double calcEuclideanDistance(Coordinate c1, Coordinate c2) {
-        double dx = c1.getPoint().x() - c2.getPoint().x();
-        double dy = c1.getPoint().y() - c2.getPoint().y();
+        double dx = c1.getX() - c2.getX();
+        double dy = c1.getY() - c2.getY();
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    // Helper method to calculate all pairwise distances between coordinates
+    // Calculate all pairwise distances between coordinates
     private double[][] getDistances(List<Coordinate> points) {
         int totalPoints = points.size();
         double[][] distances = new double[totalPoints][totalPoints];

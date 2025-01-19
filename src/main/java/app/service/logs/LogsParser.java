@@ -1,13 +1,12 @@
 package app.service.logs;
 
-import app.dto.Area;
 import app.dto.Coordinate;
-import app.dto.Point;
-import app.repository.FFDataRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -15,49 +14,38 @@ import java.util.stream.Collectors;
 @Service
 public class LogsParser {
     private static final String playerCordPattern = "([\uE090-\uE097])(.*)(\uE0BB)([a-zA-Z][a-zA-Z ]+)(.*)";
-    @Autowired
-    private FFDataRepository ffDataRepository;
 
-    public Map<Area, LinkedList<Coordinate>> parseLogs(String input) {
+    private record Point(double x, double y) {}
+
+    public Map<String, List<Coordinate>> parseLogs(String input) {
         List<String> validSentences = findValidSentences(input);
-        List<Area> areas = ffDataRepository.fetchAreasData();
 
-        Map<Area, LinkedList<Coordinate>> groupedCoordinates = validSentences.stream()
-                .map(sentence -> parseLog(sentence, areas))
+        Map<String, List<Coordinate>> logs = validSentences.stream()
+                .map(this::parseLog)
                 .filter(Objects::nonNull)
-                .collect(Collectors.groupingBy(
-                        Map.Entry::getKey,
-                        Collectors.mapping(
-                                Map.Entry::getValue,
-                                Collectors.toCollection(LinkedList::new)
-                        )
-                ));
-
-        groupedCoordinates.forEach((area, coordinates) -> mergeSimilarCoordinates(coordinates));
-        return groupedCoordinates;
+                .collect(Collectors.groupingBy(Coordinate::getAreaName));
+        logs.replaceAll((name, coordinates) -> mergeSimilarCoordinates(coordinates));
+        return logs;
     }
 
-    private Map.Entry<Area, Coordinate> parseLog(String validSentence, List<Area> areas) {
+    private Coordinate parseLog(String validSentence) {
         Pattern fullInfoPattern = Pattern.compile(playerCordPattern);
         Matcher fullInfoMatcher = fullInfoPattern.matcher(validSentence);
 
         if (fullInfoMatcher.find()) {
-            // Parse player's coordinate
+            Coordinate playerCoordinate = new Coordinate();
+
             String name = parsePlayerName(fullInfoMatcher.group(2)); // Player's name
-            String coordinates = fullInfoMatcher.group(5); // Player's coordinates
-            Point coordinate = parsePoint(coordinates);
-            Coordinate playerCoordinate = new Coordinate(
-                    name, coordinate, "x_mark.png", false
-            );
+            playerCoordinate.setName(name);
 
-            // Parse Area
+            Point point  = parsePoint(fullInfoMatcher.group(5)); // Player's coordinates
+            playerCoordinate.setX(point.x);
+            playerCoordinate.setY(point.y);
+
             String areaName = fullInfoMatcher.group(4).trim();
-            Area area = areas.stream()
-                    .filter(a -> a.getName().equals(areaName))
-                    .findFirst()
-                    .orElse(null); // Location's name
+            playerCoordinate.setAreaName(areaName);
 
-            return area != null ? Map.entry(area, playerCoordinate) : null;
+            return playerCoordinate;
         }
         return null;
     }
@@ -100,7 +88,7 @@ public class LogsParser {
         return validSentences;
     }
 
-    private void mergeSimilarCoordinates(List<Coordinate> list) {
+    private List<Coordinate> mergeSimilarCoordinates(List<Coordinate> list) {
         for (int i = 0; i < list.size(); i++) {
             Coordinate current = list.get(i);
 
@@ -115,18 +103,17 @@ public class LogsParser {
                 }
             }
         }
+        return list;
     }
 
-    private boolean isSimilarPoint(Coordinate playerCord1, Coordinate playerCord2) {
+    private boolean isSimilarPoint(Coordinate coordinate1, Coordinate coordinate2) {
         double margin = 1.5;
 
-        Point point1 = playerCord1.getPoint();
-        double x1 = point1.x();
-        double y1 = point1.y();
+        double x1 = coordinate1.getX();
+        double y1 =  coordinate2.getY();
 
-        Point point2 = playerCord2.getPoint();
-        double x2 = point2.x();
-        double y2 = point2.y();
+        double x2 = coordinate2.getX();
+        double y2 = coordinate2.getY();
 
         return (x1 == x2 && y1 == y2) || (Math.abs(x1 - x2) < margin && Math.abs(y1 - y2) < margin);
     }
