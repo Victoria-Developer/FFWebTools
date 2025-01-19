@@ -30,11 +30,6 @@ public class Tsp {
                 .flatMap(route -> route.stream()
                         .map(Node::coordinate2))
                 .collect(Collectors.toCollection(LinkedList::new));
-       /*return routes.stream()
-                .map(route -> route.stream()
-                        .map(Node::coordinate2)
-                        .collect(Collectors.toCollection(LinkedList::new)))
-                .collect(Collectors.toList());*/
     }
 
     private void log(String title, List<LinkedList<Node>> routes) {
@@ -100,8 +95,8 @@ public class Tsp {
     }
 
     private double calcEuclideanDistance(Coordinate c1, Coordinate c2) {
-        double dx = c1.getPoint().x() - c2.getPoint().x();
-        double dy = c1.getPoint().y() - c2.getPoint().y();
+        double dx = c1.getX() - c2.getX();
+        double dy = c1.getY() - c2.getY();
         return Math.sqrt(dx * dx + dy * dy);
     }
 

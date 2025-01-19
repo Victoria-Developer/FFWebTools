@@ -1,22 +1,18 @@
 $("#submitLogs").click(function(e) {
     e.preventDefault();
+    removeLogsFromAllLogs();
     $.ajax({
         url: "/optimalRoute/calculate",
         type: "POST",
         dataType: 'json',
         data: {
-            "logs" : JSON.stringify(serializeLogsMap())
+            "logs" : JSON.stringify(allLogs)
         },
-        success: function(result) {
-            formAreaToDefault();
-            if (jQuery.isEmptyObject(result)) return;
-
-            logsMap.clear();
-            initializeLogsMap(result)
-
-            console.log('Calculated logsMap:', logsMap);
-            initLogsPanel(logsMap);
-            drawCanvas(logsMap);
+        success: function(response) {
+            revalidateTextArea()
+            if (jQuery.isEmptyObject(response)) return;
+            updateLogsPanel(response, true);
+            updateMapCanvas(response);
         }
     });
 });
@@ -33,24 +29,22 @@ $('.logsAdd').click(function(e) {
             formAreaToDefault();
             if (jQuery.isEmptyObject(response)) return;
             $('.logsWrapperPanel').show();
-            let addedLogs = addLogs(response);
-            addToLogsPanel(addedLogs);
+            updateLogsPanel(response, false);
         }
     });
 });
 
 $('.logsReset').click(function(e) {
     e.preventDefault();
-    logsMap = {};
-    repaint(document.getElementById('logsPanelId'));
+    revalidateLogsPanel();
     $('.logsWrapperPanel').hide();
     repaint(canvasPanel);
-    formAreaToDefault();
+    revalidateTextArea()
 });
 
 
 $('.chatLogs').on('input', function(e) {
-    resize(this);
+    resizeTextArea(this);
     if (/^\s*$/.test($(this).val())) return;
 });
 
@@ -62,3 +56,13 @@ $('.chatLogs').on('keydown', function(e) {
         return false;
     }
 });
+
+function revalidateTextArea() {
+    $("#inputLogs").val('');
+    resize(document.getElementById("inputLogs"));
+}
+
+function resizeTextArea(textArea) {
+    textArea.style.height = '';
+    textArea.style.height = textArea.scrollHeight + 'px';
+}

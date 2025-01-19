@@ -5,31 +5,25 @@ $(document).ready(function() {
     canvasPanel = document.getElementById("canvasPanel");
 });
 
-function revalidateCanvas() {
-    if (responseData == null) return;
-    repaint();
-    createCanvas(responseData);
-}
-
 function getLogInfoText(log) {
-     return `${log.name} (${log.point.x}, ${log.point.y})`;
+    return `${log.name} (${log.x}, ${log.y})`;
 }
 
-function drawCanvas(resultMap) {
+function updateMapCanvas(response) {
     const canvasPanel = document.getElementById("canvasPanel");
     canvasPanel.innerHTML = "";
 
-    resultMap.forEach((logs, area) => {
+    response.forEach((data) => {
         const canvas = document.createElement("canvas");
         canvasPanel.appendChild(canvas);
-
         const ctx = canvas.getContext("2d");
 
         const background = new Image();
-        background.src = "/images/areas" + area.fileName;
+        background.src = "/images/areas" + data.areaFileName;
 
         background.onload = function () {
-            let ind = 1;
+            const logs = JSON.parse(data.logs);
+
             canvas.width = background.width;
             canvas.height = background.height;
             ctx.drawImage(background, 0, 0);
@@ -42,21 +36,21 @@ function drawCanvas(resultMap) {
                 ctx.beginPath();
 
                 const log = logs[step];
-                const src = "/images/" + log.filePath;
+                let logFileName = log.teleport == true? "tp.png" : "x_mark.png"
+                const src = "/images/" + logFileName;
 
                 // Calculate scaled game point
-                const scaledPoint1 = scalePoint(log.point, background.height, background.width);
+                const scaledPoint1 = scalePoint(log, background.height, background.width);
                 canvasScaledPointsMap.set(log, { x: scaledPoint1.x, y: scaledPoint1.y });
                 ctx.moveTo(scaledPoint1.x, scaledPoint1.y);
-                addMarker(src, ctx, scaledPoint1.x, scaledPoint1.y, ind, log);
+                addMarker(src, ctx, scaledPoint1.x, scaledPoint1.y, step + 1);
 
                 // Draw line between two points on the map
                 if (step !== logs.length - 1 && logs[step + 1].teleport === false) {
-                    const scaledPoint2 = scalePoint(logs[step + 1].point, background.height, background.width);
+                    const scaledPoint2 = scalePoint(logs[step + 1], background.height, background.width);
                     ctx.lineTo(scaledPoint2.x, scaledPoint2.y);
                 }
                 ctx.stroke();
-                ind++;
             }
 
             // Add tooltip listener for the drawn map
@@ -107,7 +101,7 @@ function addOutLineText(ctx, text, x, y) {
     ctx.fillText(text, x, y);
 }
 
-function addMarker(src, ctx, x, y, step, log) {
+function addMarker(src, ctx, x, y, step) {
     const marker = new Image();
     marker.src = src;
 
