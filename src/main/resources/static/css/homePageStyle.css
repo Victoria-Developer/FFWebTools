@@ -6,10 +6,20 @@
     margin-top: 5%;
 }
 
-.menu {
-    margin-right: 10%;
-    margin-left: 10%;
-    position: sticky;
-    display: inline-block;
-    top: 10%;
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 500px;
+    background-image: url("../images/adventure.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.main p {
+    margin-left: 20px;
+    font-size: 20px;
+    text-align: center;
+    max-width: 300px;
 }

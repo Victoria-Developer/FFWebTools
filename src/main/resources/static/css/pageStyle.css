@@ -82,7 +82,12 @@ input[type=checkbox]:checked::after {
 }
 
 textArea{
-    resize: vertical;
+    resize: both;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 400px;
+    max-height: 400px;
+    overflow: auto;
 }
 
 .wrapper{

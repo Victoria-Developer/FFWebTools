@@ -18,6 +18,12 @@ public class Tsp {
     public LinkedList<Coordinate> solve(Coordinate[] teleports, List<Coordinate> playerC) {
         List<LinkedList<Node>> routes = new ArrayList<>();
 
+        // Find nearest neighbour for each teleport
+        // Find the shortest route
+        // Split into arrays if distance between two connected nodes is bigger than threshold
+        // Connect each array-outlier to the nearest point starting from the first array
+        // Point can be the ending point of existing shortest route or any teleport.
+
         // Split by proximity to teleports and build routes
         clusterByTeleports(teleports, playerC)
                 .forEach(list -> routes.add(nNeighbor(list)));

@@ -11,8 +11,14 @@
 {% include "navigation" %}
 
 <div class="main">
-<div class="menu">
-A hobby site providing optimal route calculation for FF14.
+<div class="logo"></div>
+<div>
+<p>Going to an adventure in Eorzea?
+Don't get lost, check <a href="/optimalRoute" class="mapRoute">this pathfinder</a> in your personal Tomestone!
+
+</p>
 </div>
+</div>
+
 </body>
 </html>
