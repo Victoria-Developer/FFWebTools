@@ -19,21 +19,26 @@ public class Tsp {
         List<LinkedList<Node>> routes = new ArrayList<>();
 
         // Find nearest neighbour for each teleport
-        // Find the shortest route
-        // Split into arrays if distance between two connected nodes is bigger than threshold
+        Arrays.stream(teleports).forEach(t -> {
+            LinkedList<Coordinate> c = new LinkedList<>(List.of(t));
+            c.addAll(playerC);
+            routes.add(nNeighbor(c));
+        });
+
+        // Sort by overall distance
+        routes.sort(Comparator.comparingDouble(list -> list.stream().mapToDouble(c -> c.distance).sum()));
+
+        // Find the shortest route and split into arrays
+        // if distance between two connected nodes is bigger than threshold
+        LinkedList<Node> optimalRoute = routes.get(0);
+        LinkedList<LinkedList<Node>> separatedRoutes = new LinkedList<>();
+        optimalRoute.forEach(node->{
+
+        });
         // Connect each array-outlier to the nearest point starting from the first array
         // Point can be the ending point of existing shortest route or any teleport.
 
-        // Split by proximity to teleports and build routes
-        clusterByTeleports(teleports, playerC)
-                .forEach(list -> routes.add(nNeighbor(list)));
-        log("Clustered routes", routes);
-
-        // Merge routes if ending points' distance is lesser than THRESHOLD
-        mergeRoutes(routes);
-        log("Merged routes", routes);
-        // split if teleport is nearer than connected point
-
+        // Flatten to LinkedList<Coordinate>
         return routes.stream()
                 .flatMap(route -> route.stream()
                         .map(Node::coordinate2))
@@ -46,23 +51,6 @@ public class Tsp {
             list.forEach(node -> System.out.println(node.coordinate2.toString()));
             System.out.println("--------------------------");
         });
-    }
-
-    private List<LinkedList<Coordinate>> clusterByTeleports(Coordinate[] teleports, List<Coordinate> playerC) {
-        List<LinkedList<Coordinate>> proximityList = new ArrayList<>();
-        for (Coordinate t : teleports) {
-            proximityList.add(new LinkedList<>(List.of(t)));
-        }
-
-        for (Coordinate coordinate : playerC) {
-            proximityList.stream()
-                    .min(Comparator.comparingDouble(list
-                            -> calcEuclideanDistance(list.get(0), coordinate)) // Teleport has index 0
-                    )
-                    .ifPresent(listWithNearestTeleport -> listWithNearestTeleport.add(coordinate));
-        }
-
-        return proximityList;
     }
 
     private LinkedList<Node> nNeighbor(LinkedList<Coordinate> coordinates) {
@@ -106,32 +94,6 @@ public class Tsp {
         double dx = c1.getX() - c2.getX();
         double dy = c1.getY() - c2.getY();
         return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    private void mergeRoutes(List<LinkedList<Node>> routes) {
-        for (int i = 0; i < routes.size(); i++) {
-            LinkedList<Node> route1 = routes.get(i);
-            Coordinate lastC1 = route1.getLast().coordinate2;
-
-            for (int j = i + 1; j < routes.size(); j++) {
-                LinkedList<Node> route2 = routes.get(j);
-                Coordinate lastC2 = route2.getLast().coordinate2;
-
-                if (calcEuclideanDistance(lastC1, lastC2) < THRESHOLD) {
-                    // Distance between teleport and first connected player's coordinate
-                    boolean shouldMergeFirstList = route1.get(1).distance <= route2.get(1).distance;
-                    LinkedList<Node> listToMerge = shouldMergeFirstList ? route1 : route2;
-                    LinkedList<Node> listToRemove = shouldMergeFirstList ? route2 : route1;
-
-                    Collections.reverse(listToRemove);
-                    listToRemove.removeLast();
-                    listToMerge.addAll(listToRemove);
-                    routes.remove(listToRemove);
-                    j--;
-                    i--;
-                }
-            }
-        }
     }
 
 }
