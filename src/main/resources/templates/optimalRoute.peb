@@ -14,7 +14,6 @@ content: attr(title);
 <body>
 <div class="wrapper">
 <div class="formDiv">
-<h1>Optimal route</h1>
 <form action="/optimalRoute" method="post">
     <div>
     <p>Paste coordinates here:</p>

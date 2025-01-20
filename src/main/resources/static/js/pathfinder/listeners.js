@@ -9,7 +9,7 @@ $("#submitLogs").click(function(e) {
             "logs" : JSON.stringify(allLogs)
         },
         success: function(response) {
-            revalidateTextArea()
+            repaintTextArea();
             if (jQuery.isEmptyObject(response)) return;
             updateLogsPanel(response, true);
             updateMapCanvas(response);
@@ -26,7 +26,7 @@ $('.logsAdd').click(function(e) {
             "inputLogs": $("#inputLogs").val()
         },
         success: function(response) {
-            formAreaToDefault();
+            repaintTextArea();
             if (jQuery.isEmptyObject(response)) return;
             $('.logsWrapperPanel').show();
             updateLogsPanel(response, false);
@@ -39,7 +39,7 @@ $('.logsReset').click(function(e) {
     revalidateLogsPanel();
     $('.logsWrapperPanel').hide();
     repaint(canvasPanel);
-    revalidateTextArea()
+    repaintTextArea();
 });
 
 
@@ -57,9 +57,9 @@ $('.chatLogs').on('keydown', function(e) {
     }
 });
 
-function revalidateTextArea() {
+function repaintTextArea() {
     $("#inputLogs").val('');
-    resize(document.getElementById("inputLogs"));
+    resizeTextArea(document.getElementById("inputLogs"));
 }
 
 function resizeTextArea(textArea) {
