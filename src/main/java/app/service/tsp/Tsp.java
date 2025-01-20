@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class Tsp {
@@ -30,58 +31,52 @@ public class Tsp {
         // Sort by overall distance
         routes.sort(Comparator.comparingDouble(list -> list.stream().mapToDouble(c -> c.distance).sum()));
         // Remove all connected nodes for other teleports
-        for (int i = 1; i < routes.size(); i++) {
-            LinkedList<Node> list = routes.get(i);
-            list.subList(1, list.size()).clear();
-        }
+        routes.stream().skip(1).forEach(route -> route.subList(1, route.size()).clear());
 
-        // Find the shortest route and split into arrays
-        // if distance between two connected nodes is bigger than the threshold
+        // Find the shortest route
         LinkedList<Node> optimalRoute = routes.get(0);
-        LinkedList<Node> outliers = new LinkedList<>();
-
-        for (Node node : optimalRoute) {
-            if (node.distance >= THRESHOLD) outliers.add(node);
-        }
+        // Split if distance between two connected nodes is bigger than the threshold
+        LinkedList<Node> outliers = optimalRoute.stream()
+                .filter(node -> node.distance >= THRESHOLD)
+                .collect(Collectors.toCollection(LinkedList::new));
 
         if (!outliers.isEmpty()) {
             // Remove all nodes starting from the first outlier
             Node firstOutlier = outliers.getFirst();
             optimalRoute.subList(optimalRoute.indexOf(firstOutlier), optimalRoute.size()).clear();
 
-            // Connect each coordinate-outlier to the nearest point of existing route.
+            // Connect each coordinate-outlier to the nearest point of existing route
             for (Node outlier : outliers) {
-                double minDistance = outlier.distance;
+                double minDistance = Double.MAX_VALUE;
                 LinkedList<Node> nearestRoute = null;
                 Coordinate nearestCoordinate = null;
-                boolean shouldCreateNewList = false;
 
-                for (LinkedList<Node> route : routes) {
-                    Coordinate lastCoordinate = route.getLast().coordinate2;
-                    double tDistance = calcEuclideanDistance(lastCoordinate, outlier.coordinate2);
-                    if (tDistance <= minDistance) {
-                        minDistance = tDistance;
-                        nearestRoute = route;
-                        nearestCoordinate = lastCoordinate;
+                // Existing routes + teleports
+                Stream<Coordinate> allCoordinates = Stream.concat(
+                        routes.stream().map(route -> route.getLast().coordinate2), // Last nodes of each route
+                        Arrays.stream(teleports) // Teleports
+                );
+
+                // Find the nearest coordinate
+                for (Coordinate coordinate : allCoordinates.toList()) {
+                    double distance = calcEuclideanDistance(coordinate, outlier.coordinate2);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        nearestCoordinate = coordinate;
+                        nearestRoute = routes.stream()
+                                .filter(route -> route.getLast().coordinate2.equals(coordinate))
+                                .findFirst()
+                                .orElse(null);
                     }
                 }
 
-                // Check if any teleport without connected coordinates is the closest coordinate itself
-                for (Coordinate teleport : teleports) {
-                    double tDistance = calcEuclideanDistance(teleport, outlier.coordinate2);
-                    if (tDistance <= minDistance) {
-                        minDistance = tDistance;
-                        nearestCoordinate = teleport;
-                        shouldCreateNewList = true;
-                    }
-                }
-
-                if (shouldCreateNewList) {
-                    LinkedList<Node> newList = new LinkedList<>();
-                    newList.add(new Node(nearestCoordinate, nearestCoordinate, 0));
-                    nearestRoute = newList;
+                // Create new list if such route doesn't exist
+                if (nearestRoute == null) {
+                    Node startNode = new Node(nearestCoordinate, nearestCoordinate, 0);
+                    nearestRoute = new LinkedList<>(List.of(startNode));
                     routes.add(nearestRoute);
                 }
+
                 nearestRoute.add(new Node(nearestCoordinate, outlier.coordinate2, minDistance));
             }
         }

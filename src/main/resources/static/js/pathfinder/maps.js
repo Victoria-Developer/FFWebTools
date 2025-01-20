@@ -43,7 +43,9 @@ function updateMapCanvas(response) {
                 const scaledPoint1 = scalePoint(log, background.height, background.width);
                 canvasScaledPointsMap.set(log, { x: scaledPoint1.x, y: scaledPoint1.y });
                 ctx.moveTo(scaledPoint1.x, scaledPoint1.y);
-                addMarker(src, ctx, scaledPoint1.x, scaledPoint1.y, step + 1);
+                var matches = log.name.match(/\b(\w)/g);
+                var acronym = matches.join('')  + `(${log.x}, ${log.y})`;
+                addMarker(src, ctx, scaledPoint1.x, scaledPoint1.y, acronym);
 
                 // Draw line between two points on the map
                 if (step !== logs.length - 1 && logs[step + 1].teleport === false) {
@@ -86,13 +88,6 @@ function addOutLineText(ctx, text, x, y) {
     ctx.font = `${fontSize}px ${fontFace}`;
     const textWidth = ctx.measureText(text).width;
 
-    ctx.strokeStyle = "black";
-    ctx.fillStyle = "#87A96B";
-    ctx.beginPath();
-    ctx.arc(x, y, textWidth / text.toString().length, 0, 2 * Math.PI, false);
-    ctx.stroke();
-    ctx.fill();
-
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.strokeStyle = "black";
@@ -101,10 +96,18 @@ function addOutLineText(ctx, text, x, y) {
     ctx.fillText(text, x, y);
 }
 
-function addMarker(src, ctx, x, y, step) {
+function addMarker(src, ctx, x, y, text) {
     const marker = new Image();
     marker.src = src;
 
+/*
+    ctx.strokeStyle = "black";
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.arc(x, y, textWidth / text.toString().length, 0, 2 * Math.PI, false);
+    ctx.stroke();
+    ctx.fill();
+*/
     marker.onload = function() {
         const imgWidth = 30;
         const imgHeight = 30;
@@ -113,8 +116,8 @@ function addMarker(src, ctx, x, y, step) {
         const imageX = x - imgWidthCenter;
         const imageY = y - imgHeightCenter;
 
-        addOutLineText(ctx, step, imageX + imgWidthCenter, imageY);
         ctx.drawImage(marker, imageX, imageY, imgWidth, imgHeight);
+        addOutLineText(ctx, text, imageX + imgWidthCenter, imageY);
     };
 }
 
