@@ -65,15 +65,21 @@ function addListChild(ul, log, spanText, liBackgroundColor, areaName) {
     li.style.background = liBackgroundColor;
     li.setAttribute("defaultColor", liBackgroundColor);
 
+    let container = document.createElement("div");
+    container.style.display = "flex";
+    container.style.alignItems = "center";
+    container.style.gap = "5px";
+
     let span = document.createElement("span");
     span.innerHTML = spanText;
     span.setAttribute("class", "logsSpan");
 
     if (!log.teleport) {
-        li.appendChild(addCheckBox(areaName, log, li));
+        container.appendChild(addCheckBox(areaName, log, li));
     }
 
-    li.appendChild(span);
+    container.appendChild(span);
+    li.appendChild(container);
     ul.appendChild(li);
 }
 

@@ -24,11 +24,8 @@ content: attr(title);
     <p>
     <input type="submit" id="submitLogs" value="Calculate">
     <input type="reset" class="logsReset" value="Reset">
-    <input type="button" class="logsAdd" value="Parse">
     </p>
 </form>
-<! Hide player name/coordinates (display as tooltip under cursor, not compatible with all browsers):
- <input type = "checkbox" class ="tooltipCheckBox">
 </div>
 
 <div id="canvasPanel" class="canvasPanel"></div>

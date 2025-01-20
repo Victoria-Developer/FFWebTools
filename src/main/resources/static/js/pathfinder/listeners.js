@@ -17,13 +17,13 @@ $("#submitLogs").click(function(e) {
     });
 });
 
-$('.logsAdd').click(function(e) {
+function parseLogs(text){
     $.ajax({
         url: "/optimalRoute/parse",
         type: "POST",
         dataType: 'json',
         data: {
-            "inputLogs": $("#inputLogs").val()
+            "inputLogs": text
         },
         success: function(response) {
             repaintTextArea();
@@ -32,7 +32,7 @@ $('.logsAdd').click(function(e) {
             updateLogsPanel(response, false);
         }
     });
-});
+}
 
 $('.logsReset').click(function(e) {
     e.preventDefault();
@@ -45,7 +45,12 @@ $('.logsReset').click(function(e) {
 
 $('.chatLogs').on('input', function(e) {
     resizeTextArea(this);
-    if (/^\s*$/.test($(this).val())) return;
+    if (/^\s*$/.test($(this).val())) {
+        repaintTextArea();
+        return;
+    }
+    console.log($(this).val());
+    parseLogs($(this).val());
 });
 
 $('.chatLogs').on('keydown', function(e) {
