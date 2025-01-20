@@ -20,35 +20,11 @@ input[type=submit], input[type=reset], input[type=button], button{
     text-align: initial;
     align-items: center;
     justify-content: center;
-    margin-top: 60px;
+    top: 40%;
 }
 
 .sortingForm{
     margin-right: 30px;
-}
-
-.mapRouteTutorial{
-    background-color: #ae98aa;
-}
-
-.mapRouteTutorial:hover{
-    background-color: #957898;
-}
-
-.mapRouteGoTo{
-    background-color: #fca474;
-}
-
-.mapRouteGoTo:hover{
-    background-color: #f9906f;
-}
-
-.logsAdd{
-    background-color: #ffc40c;
-}
-
-.logsAdd:hover{
-    background-color: #efcc00;
 }
 
 input[type=submit]:disabled, input[type=reset]:disabled, input[type=button]:disabled{
@@ -76,29 +52,33 @@ input[type=reset]:hover {
 }
 
 input[type=checkbox] {
-    position: relative;
-    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
     width: 30px;
     height: 30px;
-    clip-path: circle(46% at 50% 50%);
+    background-color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-table {
-    border-collapse: collapse;
-    border: 1px solid #ddd;
-    margin-left: auto;
-    margin-right: auto;
-    background: #F8F8F8;
+input[type=checkbox]:checked {
+    background-color: #318CE7;
+    border-color: #318CE7;
 }
 
-th, td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-}
-
-tr:hover {
-    background-color: #E0E0E0;
+input[type=checkbox]:checked::after {
+    content: '✔';
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 textArea{
@@ -148,20 +128,25 @@ textArea{
     background: #f1f1f1;
 }
 
-.logsLi  {
+.logsLi {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    color: "dark blue";
+    justify-content: flex-start;
+    align-items: center;
+    color: black;
     font-weight: bold;
-    font-size: 30;
+    font-size: 30px;
     border-radius: 10em;
     margin: 5px;
-    paddling:0;
+    padding: 10px;
     box-shadow:
-        inset 0 -3em 3em rgba(0,0,0,0.1),
-        0 0  0 2px rgb(255,255,255),
-        0.3em 0.3em 1em rgba(0,0,0,0.3);
+        inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+        0 0 0 2px rgb(255, 255, 255),
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.logsSpan {
+    margin: 5px;
+    text-align: center;
 }
 
 
