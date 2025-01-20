@@ -12,7 +12,7 @@
     <ul>
      <li> <a href="/" class="home">Home</a> </li>
      <li> <a href="/optimalRoute" class="mapRoute">Map route</a> </li>
-     <li> <a href="/contact" class="contact">Contact</a> </li>
+     <li> <a href="/contact" class="contact">Contacts</a> </li>
     </ul>
 </nav>
 </body>
