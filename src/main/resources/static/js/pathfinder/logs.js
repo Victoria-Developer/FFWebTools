@@ -15,7 +15,7 @@ function updateLogsPanel(response, shouldRepaint) {
         revalidateLogsPanel();
         liBackgroundColor = "#87A96B";
     } else{
-        liBackgroundColor = "yellow";
+        liBackgroundColor = "#f6f799";
     }
 
     response.forEach(data => {
@@ -36,7 +36,7 @@ function updateLogsPanel(response, shouldRepaint) {
 
        logs.forEach((log, index) => {
             const logText = `${log.name} (${log.x}, ${log.y})`;
-            const spanText = shouldRepaint == true? `NEW ${logText}` : `${index + 1}. ${logText}`;
+            const spanText = shouldRepaint == false? `NEW ${logText}` : `${index + 1}. ${logText}`;
             addListChild(innerUl, log, spanText, liBackgroundColor, areaName);
        });
     });

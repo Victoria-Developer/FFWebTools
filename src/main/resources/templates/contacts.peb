@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="contactsWrapper">
-<img src="/images/net_blinov.webp"></img>
+<img src="/images/contacts_img.webp"></img>
 <form action="/contact" method="post">
 <div class="messageFormWrapper">
 <p>Our best call manager is waiting for your purrfect message.</p>

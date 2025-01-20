@@ -1,102 +1,102 @@
 .contactsWrapper{
-display: flex;
-flex-direction: row;
-text-align: initial;
-align-items: center;
+    display: flex;
+    flex-direction: row;
+    text-align: initial;
+    align-items: center;
 }
 
 .messageFormWrapper{
-display: flex;
-flex-direction: column;
-text-align: initial;
-align-items: center;
-justify-content: space-evenly;
-margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    text-align: initial;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: 10%;
 }
 
 .input-container {
-  position: relative;
-  font-family: Arial;
-  display: inline-block;
+    position: relative;
+    font-family: Arial;
+    display: inline-block;
 }
 
 .input-container input, .input-container textarea {
-  height: 32px;
-  line-height: 24px;
-  border-radius: 8px;
-  border: 1px solid #dcdcdc;
-  min-width: 300px;
-  padding: 4px 8px;
-  transition: all .2s ease;
+    height: 32px;
+    line-height: 24px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    min-width: 300px;
+    padding: 4px 8px;
+    transition: all .2s ease;
 }
 
 .input-container label {
-  position: absolute;
-  top: 12px;
-  left: 4px;
-  background-color: #fff;
-  padding: 0 4px;
-  font-size: 14px;
-  pointer-events: none;
-  transition: all .2s ease;
+    position: absolute;
+    top: 12px;
+    left: 4px;
+    background-color: #fff;
+    padding: 0 4px;
+    font-size: 14px;
+    pointer-events: none;
+    transition: all .2s ease;
 }
 
 .input-container input:focus {
-  outline: none;
-  border: 1px solid #3f51b5;
+    outline: none;
+    border: 1px solid #3f51b5;
 }
 
 .input-container input:valid + label,
 .input-container input:focus + label,
 .input-container textarea:valid + label,
 .input-container textarea:focus + label{
-  top: -8px;
-  color: #3f51b5;
+    top: -8px;
+    color: #3f51b5;
 }
 
 .input-container {
-  position: relative;
-  font-family: Arial;
-  display: block;
+    position: relative;
+    font-family: Arial;
+    display: block;
 }
 
 .input-container> *:not(:last-child){
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .input-container input {
-  height: 32px;
-  line-height: 24px;
-  border-radius: 8px;
-  border: 1px solid #dcdcdc;
-  min-width: 300px;
-  padding: 4px 8px;
-  transition: all .2s ease;
+    height: 32px;
+    line-height: 24px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    min-width: 300px;
+    padding: 4px 8px;
+    transition: all .2s ease;
 }
 
 .input-container label {
-  position: absolute;
-  top: 12px;
-  left: 4px;
-  background-color: #fff;
-  padding: 0 4px;
-  font-size: 14px;
-  pointer-events: none;
-  transition: all .2s ease;
+    position: absolute;
+    top: 12px;
+    left: 4px;
+    background-color: #fff;
+    padding: 0 4px;
+    font-size: 14px;
+    pointer-events: none;
+    transition: all .2s ease;
 }
 
 .input-container input:focus {
-  outline: none;
-  border: 1px solid #3f51b5;
+    outline: none;
+    border: 1px solid #3f51b5;
 }
 
 .input-container input:valid + label,
 .input-container input:focus + label {
-  top: -8px;
-  color: #3f51b5;
+    top: -8px;
+    color: #3f51b5;
 }
 
 #message{
-height: 15vh;
-overflow: auto;
+    height: 15vh;
+    overflow: auto;
 }

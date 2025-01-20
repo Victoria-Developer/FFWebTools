@@ -22,10 +22,12 @@ public class Tsp {
         clusterByTeleports(teleports, playerC)
                 .forEach(list -> routes.add(nNeighbor(list)));
         log("Clustered routes", routes);
+
         // Merge routes if ending points' distance is lesser than THRESHOLD
         mergeRoutes(routes);
         log("Merged routes", routes);
         // split if teleport is nearer than connected point
+
         return routes.stream()
                 .flatMap(route -> route.stream()
                         .map(Node::coordinate2))

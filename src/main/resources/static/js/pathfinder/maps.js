@@ -87,7 +87,7 @@ function addOutLineText(ctx, text, x, y) {
     const textWidth = ctx.measureText(text).width;
 
     ctx.strokeStyle = "dark blue";
-    ctx.fillStyle = "#63E5FF";
+    ctx.fillStyle = "#87A96B";
     ctx.beginPath();
     ctx.arc(x, y, textWidth / text.toString().length, 0, 2 * Math.PI, false);
     ctx.stroke();

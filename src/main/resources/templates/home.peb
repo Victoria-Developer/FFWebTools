@@ -8,9 +8,6 @@
 <link rel="stylesheet" href="/css/homePageStyle.css">
 <body>
 
-<div class="banner">
-<h1> Final Fantasy tools </h1>
-</div>
 {% include "navigation" %}
 
 <div class="main">
