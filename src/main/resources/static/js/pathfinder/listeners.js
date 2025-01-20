@@ -44,13 +44,14 @@ $('.logsReset').click(function(e) {
 
 
 $('.chatLogs').on('input', function(e) {
+    let text = $(this).val();
     resizeTextArea(this);
-    if (/^\s*$/.test($(this).val())) {
+    if (/^\s*$/.test(text)) {
         repaintTextArea();
         return;
     }
-    console.log($(this).val());
-    parseLogs($(this).val());
+    console.log(text);
+    parseLogs(text);
 });
 
 $('.chatLogs').on('keydown', function(e) {

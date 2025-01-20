@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $(".mailSubmit").on('click', function(e) {
         e.preventDefault();
+        clearFields();
         $.ajax({
             url: "/contact/message",
             type: "POST",
@@ -11,7 +12,7 @@ $(document).ready(function() {
                 "message": $("#message").val()
             },
             success: function(response) {
-                clearFields();
+                // show success dialog
             }
         });
     });
