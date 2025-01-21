@@ -1,0 +1,105 @@
+[
+  {
+    "name": "Mare Lamentorum",
+    "teleports": [
+      { "name": "Sinus Lacrimarum", "x": 10.6, "y": 34.3 },
+      { "name": "Bestways Burrow", "x": 21.7, "y": 11.1 }
+    ],
+    "fileName": "/endwalker/mare_lamentorium.jpg"
+  },
+  {
+    "name": "Thavnair",
+    "teleports": [
+      { "name": "Palaka's Stand", "x": 29.5, "y": 16.5 },
+      { "name": "Yedlihmad", "x": 25.3, "y": 34.0 },
+      { "name": "The Great Work", "x": 10.9, "y": 22.2 }
+    ],
+    "fileName": "/endwalker/travnair.jpg"
+  },
+  {
+    "name": "Ultima Thule",
+    "teleports": [
+      { "name": "Reah Tahr", "x": 10.5, "y": 26.7 },
+      { "name": "Abode of the Ea", "x": 22.7, "y": 8.3 },
+      { "name": "Base Omicron", "x": 31.3, "y": 28.0 }
+    ],
+    "fileName": "/endwalker/ultima_thule.jpg"
+  },
+  {
+    "name": "Garlemald",
+    "teleports": [
+      { "name": "Camp Broken Glass", "x": 13.3, "y": 31.1 },
+      { "name": "Tertium", "x": 31.7, "y": 18.0 }
+    ],
+    "fileName": "/endwalker/garlemald.jpg"
+  },
+  {
+    "name": "Labyrinthos",
+    "teleports": [
+      { "name": "Aporia", "x": 6.9, "y": 27.4 },
+      { "name": "The Archeion", "x": 30.3, "y": 11.9 },
+      { "name": "Sharlayan Hamlet", "x": 21.6, "y": 20.5 }
+    ],
+    "fileName": "/endwalker/labyrinthos.jpg"
+  },
+  {
+    "name": "Elpis",
+    "teleports": [
+      { "name": "Anagnorisis", "x": 8.3, "y": 24.7 },
+      { "name": "The Twelve Wonders", "x": 23.5, "y": 17.9 },
+      { "name": "Poieten Oikos", "x": 28.9, "y": 8.4 }
+    ],
+    "fileName": "/endwalker/elpis.jpg"
+  },
+  {
+    "name": "Lakeland",
+    "teleports": [
+      { "name": "Fort Jobb", "x": 15.6, "y": 19.3 },
+      { "name": "The Ostall Imperative", "x": 23.8, "y": 30.4 }
+    ],
+    "fileName": "/endwalker/lakeland.jpg"
+  },
+  {
+    "name": "Il Mheg",
+    "teleports": [
+      { "name": "Lydra Lran", "x": 14.2, "y": 25.7 },
+      { "name": "Pla Enni", "x": 20.8, "y": 15.4 },
+      { "name": "Wolekdorf", "x": 9.3, "y": 11.7 }
+    ],
+    "fileName": "/endwalker/il_mheg.jpg"
+  },
+  {
+    "name": "Amh Araeng",
+    "teleports": [
+      { "name": "The Inn at Journey's Head", "x": 10.7, "y": 28.1 },
+      { "name": "Mord Souq", "x": 21.4, "y": 17.6 },
+      { "name": "Twine", "x": 31.0, "y": 9.8 }
+    ],
+    "fileName": "/endwalker/amh_araeng.jpg"
+  },
+  {
+    "name": "The Tempest",
+    "teleports": [
+      { "name": "The Ondo Cups", "x": 14.5, "y": 27.2 },
+      { "name": "The Macarenes Angle", "x": 25.6, "y": 10.9 }
+    ],
+    "fileName": "/endwalker/the_tempest.jpg"
+  },
+  {
+    "name": "The Rak'tika Greatwood",
+    "teleports": [
+      { "name": "Slitherbough", "x": 12.9, "y": 19.3 },
+      { "name": "Fanow",  "x": 27.4, "y": 30.8 }
+    ],
+    "fileName": "/endwalker/the_raktika_greatwood.jpg"
+  },
+  {
+    "name": "Kholusia",
+    "teleports": [
+      { "name": "Stilltide", "x": 13.5, "y": 25.6 },
+      { "name": "Wright", "x": 22.9, "y": 18.3 },
+      { "name": "Tomra", "x": 8.7, "y": 11.4 }
+    ],
+    "fileName": "/endwalker/kholusia.jpg"
+  }
+]

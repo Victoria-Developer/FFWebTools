@@ -1,4 +1,4 @@
-Copypaste logs from FF14. You can discard of some logs on click and make a new route.
+Copypaste playerCords from FF14. You can discard of some playerCords on click and make a new route.
 
 
 

@@ -1,14 +1,18 @@
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/navStyle.css">
+<link rel="stylesheet" href="/css/nav.css">
 <body>
+<div class="banner">
+  <div>
+    <h1>Final Fantasy Tools</h1>
+  </div>
+</div>
 <nav class="top-navigation">
     <ul>
      <li> <a href="/" class="home">Home</a> </li>
      <li> <a href="/optimalRoute" class="mapRoute">Map route</a> </li>
-     <li> <a href="/fcSearch" class="fcParsing">Fc parsing</a> </li>
-     <li> <a href="/contact" class="contact">Contact</a> </li>
+     <li> <a href="/contact" class="contact">Contacts</a> </li>
     </ul>
 </nav>
 </body>
