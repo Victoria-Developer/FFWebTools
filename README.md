@@ -1,10 +1,12 @@
 Welcome to the FFWebTools. This site helps players to build the shortest routes for treasure hunting.
+Main navigation bar is sticky and stays visible after page scrolling.
 
 ![image](https://github.com/user-attachments/assets/a0e828ea-ffb5-4710-9e60-2640ba14dca8)
 
 ***
 
-Copypaste party logs from in-game chat. You can use checkboxes in the logs list to exclude and include coordinates again. 
+Copypaste party logs from in-game chat. New logs have light yellow color and "NEW" label. Calculated logs have green color and are ordered.
+You can use checkboxes in the logs list to exclude and include coordinates again. 
 "Calculate" button allows to build new routes with current parsed logs.
 
 ```
