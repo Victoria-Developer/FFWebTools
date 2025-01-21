@@ -20,4 +20,3 @@ Copypaste party logs from in-game chat. You can use checkboxes in the logs list 
 
 The site also has Contacts page.
 
-![unknown](https://github.com/user-attachments/assets/84b22da1-dd9f-4dae-928e-cb5580d0556a)
