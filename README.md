@@ -5,7 +5,7 @@ Main navigation bar is sticky and stays visible after page scrolling.
 
 ***
 
-Copypaste party logs from in-game chat. New logs have light yellow color and "NEW" label. Calculated logs have green color and are ordered.
+Copypaste party logs from in-game chat to the text area, logs would be automatically parsed. New logs have light yellow color and "NEW" label. Calculated logs have green color and are ordered.
 You can use checkboxes in the logs list to exclude and include coordinates again. 
 "Calculate" button allows to build new routes with current parsed logs.
 
