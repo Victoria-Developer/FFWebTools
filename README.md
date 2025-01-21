@@ -12,6 +12,7 @@ Copypaste party logs from in-game chat. You can use checkboxes in the logs list 
 (Nyan Doge) Garlemald ( 17.9  , 28.3 )
 (Nyan Doge) Garlemald ( 21.9  , 25.9 )
 (Nyan Doge) Garlemald ( 25.6  , 24.2 )
+(Nyan Doge) Garlemald ( 19.9  , 9.5 )
 ```
 
 ![image](https://github.com/user-attachments/assets/a7b94e1d-674d-444c-95d8-defd1168fd81)
