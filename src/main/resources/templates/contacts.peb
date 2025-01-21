@@ -1,6 +1,6 @@
 {% include "navigation" %}
-<link rel="stylesheet" href="/css/pageStyle.css">
-<link rel="stylesheet" href="/css/contactsStyle.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/contacts.css">
 <html>
 <head>
 <title>Contacts</title>
