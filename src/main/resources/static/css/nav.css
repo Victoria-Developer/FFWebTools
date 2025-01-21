@@ -1,0 +1,50 @@
+.top-navigation {
+    background: #A16B4C;
+    margin: 0 0 0 0;
+    display: inline-block;
+    text-align: center;
+    paddling: 0;
+    width: 100%;
+    position: sticky;
+    top: 0;
+}
+
+.top-navigation ul{
+    list-style-type: none;
+    margin:0;
+}
+
+.top-navigation li{
+    display:inline
+}
+
+.top-navigation li a {
+    display:inline-block;
+    list-style-type: none;
+    color: #000000;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.top-navigation li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+h1 {
+  color: black;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+.banner{
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    background-image:
+    url("../images/ff_14_world_map.jpg");
+    background-position:right center;
+    background-size:cover;
+}

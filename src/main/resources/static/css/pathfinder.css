@@ -1,0 +1,59 @@
+.wrapper{
+    display: inline-flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.formDiv{
+    margin-top: 20px;
+    position: sticky;
+    position: -webkit-sticky;
+}
+
+.logsWrapperPanel{
+    display: none;
+    position: sticky;
+    position: -webkit-sticky;
+}
+
+.coordinatesPanel{
+    overflow: auto;
+    height: 50vh;
+}
+
+.canvasPanel{
+    margin-top: 20px;
+    flex-shrink: 3;
+}
+
+.logsPanel {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: .5em;
+    background: #f1f1f1;
+}
+
+.logsLi {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    border-radius: 10em;
+    margin: 5px;
+    padding: 10px;
+    box-shadow:
+        inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+        0 0 0 2px rgb(255, 255, 255),
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.logsSpan {
+    margin: 5px;
+    text-align: center;
+}

@@ -1,48 +1,24 @@
 <html>
+<head>
+<title>Home</title>
+</head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/pageStyle.css">
-<link rel="stylesheet" href="/css/homePageStyle.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/home.css">
 <body>
 
-<div class="banner">
-<h1> Iritools </h1>
-</div>
 {% include "navigation" %}
 
 <div class="main">
-<div class="menu">
-A hobby site made by FF14 players, providing free tools to use.
-<nav class="section-nav">
-    <ol>
-      <li><a href="#mapRouteSection">Map Route</a></li>
-      <li><a href="#fcParsingSection">Fc Parsing</a></li>
-    </ol>
-</nav>
-</div>
-<div class="homeSections">
+<div class="logo"></div>
+<div>
+<p>Going to an adventure in Eorzea?
+Don't get lost, check <a href="/optimalRoute" class="mapRoute">this pathfinder</a> in your personal Tomestone!
 
-<section id="mapRouteSection">
-<div class="mapRouteDiv">
-<h2> Map route calculation. </h2>
-<input type="button" class="mapRouteTutorial"
-onclick="location.href='/mapRouteHelp'" value="How to use" disabled>
-<input type="button" onclick="location.href='/optimalRoute'"
-class="mapRouteGoTo" value="Go to Map Route">
+</p>
 </div>
-</section>
+</div>
 
-<section id="fcParsingSection">
-<div class="fcSearchDiv">
-<h2> Fc parsing. </h2>
-<input type="button" class="fcParsingTutorial"
-onclick="location.href='/fcParsingHelp'" value="How to use" disabled>
-<input type="button" onclick="location.href='/fcSearch'"
-class="fcParsingGoTo" value="Go to Fc parsing">
-</div>
-</section>
-
-</div>
-<script type="text/javascript" src="/js/tableOfContentsObserver.js"></script>
 </body>
 </html>
