@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/css/pageStyle.css">
-<link rel="stylesheet" href="/css/inputStyle.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pathfinder.css">
 <style>
 canvas:hover::after {
 content: attr(title);
@@ -25,16 +25,17 @@ content: attr(title);
     <input type="submit" id="submitLogs" value="Calculate">
     <input type="reset" class="logsReset" value="Reset">
     </p>
+
+    <div class="logsWrapperPanel">
+    <div class="coordinatesPanel">
+    <ul class="logsPanel" id="logsPanelId"></ul>
+    </div>
+    </div>
+
 </form>
 </div>
 
 <div id="canvasPanel" class="canvasPanel"></div>
-
-<div class="logsWrapperPanel">
-<div class="coordinatesPanel">
-<ul class="logsPanel" id="logsPanelId"></ul>
-</div>
-</div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="/js/pathfinder/maps.js"></script>
