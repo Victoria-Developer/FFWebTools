@@ -1,12 +1,11 @@
-Copypaste playerCords from FF14. You can discard of some playerCords on click and make a new route.
+Welcome to the FFWebTools. This site helps players to build the shortest routes for treasure hunting.
 
+![image](https://github.com/user-attachments/assets/a0e828ea-ffb5-4710-9e60-2640ba14dca8)
 
+***
 
-![image](https://github.com/Beatoriche-sama/IriskaWebTools/assets/77235839/0837cfb6-7e21-4a55-8e53-e3f163c57669)
-
-
-Examples:
-
+Copypaste party logs from in-game chat. You can use checkboxes in the logs list to exclude and include coordinates again. 
+"Calculate" button allows to build new routes with current parsed logs.
 
 ```
 (Nyan Doge) Garlemald ( 14.3  , 29.7 )
@@ -15,17 +14,10 @@ Examples:
 (Nyan Doge) Garlemald ( 25.6  , 24.2 )
 ```
 
+![image](https://github.com/user-attachments/assets/a7b94e1d-674d-444c-95d8-defd1168fd81)
 
+***
 
-![unknown](https://github.com/Beatoriche-sama/IriskaWebTools/assets/77235839/8205673a-759e-4709-8d16-cc45e82fec79)
+The site also has Contacts page.
 
-
-```
-(Nyan Doge) Garlemald ( 24.0  , 20.8 )
-(Nyan Doge) Garlemald ( 29.4  , 29.9 )
-(Nyan Doge) Garlemald ( 19.9  , 9.5 )
-(Nyan Doge) Garlemald ( 29.8  , 12.1 )
-(Nyan Doge) Garlemald ( 14.9  , 26.6 )
-```
-
-![unknown](https://github.com/Beatoriche-sama/IriskaWebTools/assets/77235839/0d801503-ceda-49cc-9b1f-a136a8edadce)
+![unknown](https://github.com/user-attachments/assets/84b22da1-dd9f-4dae-928e-cb5580d0556a)
