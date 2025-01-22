@@ -21,18 +21,21 @@ public class Tsp {
         List<Coordinate> mergedPlayerC = mergeSimilarCoordinates(playerC);
         List<LinkedList<Node>> routes = new ArrayList<>();
 
-        // Find nearest neighbour for each teleport
-        Arrays.stream(teleports).forEach(t -> {
-            LinkedList<Coordinate> c = new LinkedList<>(List.of(t));
-            c.addAll(mergedPlayerC);
-            routes.add(nNeighbor(c));
-        });
+        // Build route for each teleport as starting point
+        // and find the most optimal route
+        double totalMinDistance = MAX_DIST;
+        LinkedList<Node> optimalRoute = null;
+        for (Coordinate teleport : teleports) {
+            LinkedList<Coordinate> orderedC = new LinkedList<>(List.of(teleport));
+            orderedC.addAll(mergedPlayerC);
 
-        // Keep only route with the least overall distance
-        LinkedList<Node> optimalRoute = routes.stream()
-                .min(Comparator.comparingDouble(route -> route.stream().mapToDouble(node -> node.distance).sum()))
-                .orElse(new LinkedList<>());
-        routes.clear();
+            LinkedList<Node> nodes = nNeighbor(orderedC);
+            double distance = nodes.stream().mapToDouble(Node::distance).sum();
+            if (distance < totalMinDistance) {
+                totalMinDistance = distance;
+                optimalRoute = nodes;
+            }
+        }
         routes.add(optimalRoute);
 
         // Split if distance between two connected nodes is bigger than the threshold
@@ -41,9 +44,9 @@ public class Tsp {
                 .collect(Collectors.toCollection(LinkedList::new));
 
         if (!outliers.isEmpty()) {
-            Node firstOutlier = outliers.getFirst();
             // Remove all nodes starting from the first outlier
-            optimalRoute.subList(optimalRoute.indexOf(firstOutlier), optimalRoute.size()).clear();
+            int firstOutlierInd = optimalRoute.indexOf(outliers.getFirst());
+            optimalRoute.subList(firstOutlierInd, optimalRoute.size()).clear();
             // Connect each coordinate-outlier to the nearest point of existing route
             connectOutliers(routes, outliers, teleports);
         }
