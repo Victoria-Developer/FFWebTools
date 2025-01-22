@@ -9,6 +9,9 @@
     margin-top: 20px;
     position: sticky;
     position: -webkit-sticky;
+    top: 15;
+    z-index: 10;
+    padding: 10px;
 }
 
 .logsWrapperPanel{
