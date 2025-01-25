@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class Tsp {
@@ -14,109 +13,99 @@ public class Tsp {
     private static final double MAX_DIST = Double.MAX_VALUE;
     private static final double THRESHOLD = 10;
 
-    private record Node(Coordinate coordinate1, Coordinate coordinate2, double distance) {
-    }
-
     public LinkedList<Coordinate> solve(Coordinate[] teleports, List<Coordinate> playerC) {
-        List<Coordinate> mergedPlayerC = mergeSimilarCoordinates(playerC);
-        List<LinkedList<Node>> routes = new ArrayList<>();
+        List<LinkedList<Coordinate>> routes = new ArrayList<>();
 
-        // Build route for each teleport as starting point
-        // and find the most optimal route
-        double totalMinDistance = MAX_DIST;
-        LinkedList<Node> optimalRoute = null;
-        for (Coordinate teleport : teleports) {
-            LinkedList<Coordinate> orderedC = new LinkedList<>(List.of(teleport));
-            orderedC.addAll(mergedPlayerC);
+        LinkedList<Coordinate> allCoordinates = new LinkedList<>(Arrays.asList(teleports));
+        List<Coordinate> mergedPlayerC = mergeCloseCoordinates(playerC);
+        allCoordinates.addAll(mergedPlayerC);
+        double[][] allDistances = getDistances(allCoordinates);
 
-            LinkedList<Node> nodes = nNeighbor(orderedC);
-            double distance = nodes.stream().mapToDouble(Node::distance).sum();
-            if (distance < totalMinDistance) {
-                totalMinDistance = distance;
-                optimalRoute = nodes;
-            }
-        }
-        routes.add(optimalRoute);
-
-        // Split if distance between two connected nodes is bigger than the threshold
-        LinkedList<Node> outliers = optimalRoute.stream()
-                .filter(node -> node.distance >= THRESHOLD)
-                .collect(Collectors.toCollection(LinkedList::new));
-
-        if (!outliers.isEmpty()) {
-            // Remove all nodes starting from the first outlier
-            int firstOutlierInd = optimalRoute.indexOf(outliers.getFirst());
-            optimalRoute.subList(firstOutlierInd, optimalRoute.size()).clear();
-            // Connect each coordinate-outlier to the nearest point of existing route
-            connectOutliers(routes, outliers, teleports);
-        }
-
-        // Convert to LinkedList<Coordinate>
-        return routes.stream()
-                .flatMap(route -> route.stream().map(Node::coordinate2))
-                .collect(Collectors.toCollection(LinkedList::new));
-    }
-
-    private void connectOutliers(List<LinkedList<Node>> routes, LinkedList<Node> outliers, Coordinate[] teleports) {
-        for (Node outlier : outliers) {
-            double minDistance = Double.MAX_VALUE;
-            LinkedList<Node> nearestRoute = null;
-            Coordinate nearestCoordinate = null;
-
-            // Existing routes + teleports
-            Stream<Coordinate> allCoordinates = Stream.concat(
-                    routes.stream().map(route -> route.getLast().coordinate2), // Last nodes of each route
-                    Arrays.stream(teleports) // Teleports
-            );
-
-            // Find the nearest coordinate
-            for (Coordinate coordinate : allCoordinates.toList()) {
-                double distance = calcEuclideanDistance(coordinate, outlier.coordinate2);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    nearestCoordinate = coordinate;
-                    nearestRoute = routes.stream()
-                            .filter(route -> route.getLast().coordinate2.equals(coordinate))
-                            .findFirst()
-                            .orElse(null);
-                }
-            }
-
-            // Create new list if such route doesn't exist
-            if (nearestRoute == null) {
-                Node startNode = new Node(nearestCoordinate, nearestCoordinate, 0);
-                nearestRoute = new LinkedList<>(List.of(startNode));
-                routes.add(nearestRoute);
-            }
-
-            nearestRoute.add(new Node(nearestCoordinate, outlier.coordinate2, minDistance));
-        }
-    }
-
-    private LinkedList<Node> nNeighbor(LinkedList<Coordinate> coordinates) {
-        double[][] distances = getDistances(coordinates);
-
-        LinkedList<Node> nodes = new LinkedList<>();
-        LinkedList<Integer> visited = new LinkedList<>();
-
-        Coordinate previousC = coordinates.get(0);
-        int nNeighbour = 0;
-        while (visited.size() < distances.length) {  // Find nearest neighbors and build nodes
-            double currentMin = MAX_DIST;
-            double[] nextDist = distances[nNeighbour]; // Distances of the next neighbor
+        // Find nearest teleport-coordinate pair
+        double minDistance = MAX_DIST;
+        int nearestTeleportInd = 0;
+        int nearestCIndex = teleports.length;
+        for (int i = 0; i < teleports.length; i++) {
+            double[] nextDist = allDistances[i];
             for (int j = 0; j < nextDist.length; j++) {
-                double currentDist = nextDist[j];
-                if (!visited.contains(j) && currentDist < currentMin) {
-                    currentMin = currentDist;
-                    nNeighbour = j;
+                double distance = nextDist[j];
+                if (i != j && nextDist[j] < minDistance) {
+                    nearestTeleportInd = i;
+                    nearestCIndex = j;
+                    minDistance = distance;
                 }
             }
-            visited.add(nNeighbour);
-            Coordinate currentC = coordinates.get(nNeighbour);
-            nodes.add(new Node(previousC, currentC, currentMin));
-            previousC = currentC;
         }
-        return nodes;
+
+        Coordinate teleport = allCoordinates.get(nearestTeleportInd);
+        Coordinate nearestPoint = allCoordinates.get(nearestCIndex);
+        LinkedList<Coordinate> firstRoute = new LinkedList<>(List.of(teleport, nearestPoint));
+        routes.add(firstRoute);
+        mergedPlayerC.remove(nearestPoint);
+
+        Set<Integer> visitedIndexes = new HashSet<>();
+
+        visitedIndexes.add(nearestCIndex);
+        LinkedList<Coordinate> currentRoute = firstRoute;
+        int currentTeleport = nearestTeleportInd;
+        int nextIndex = nearestCIndex; // Start with the nearest player coordinate
+
+        // Use Nearest Neighbor to build routes
+        while (visitedIndexes.size() < mergedPlayerC.size() + 1) {
+            boolean shouldCreateRoute = false;
+            double minDist = MAX_DIST;
+
+            double[] nextDist = allDistances[nextIndex];
+            for (int j = teleports.length; j < nextDist.length; j++) {
+                double distance = nextDist[j];
+                if (!visitedIndexes.contains(j) && distance < minDist) {
+                    nextIndex = j;
+                    minDist = distance;
+                }
+            }
+
+            if (minDist >= THRESHOLD) {
+
+                // Check if any other teleport is closer to the current coordinate
+                for (LinkedList<Coordinate> route : routes) {
+                    int routeLastC = allCoordinates.indexOf(route.getLast());
+                    double[] routeLastCDistances = allDistances[routeLastC];
+                    double routeLastCDistance = routeLastCDistances[nextIndex];
+                    if (routeLastC != nextIndex && routeLastCDistance < minDist) {
+                        minDist = routeLastCDistance;
+                        currentRoute = route;
+                    }
+                }
+
+                // Check if there's any other teleport-coordinate pair with less distance
+                for (int i = 0; i < teleports.length; i++) {
+                    double[] otherDistances = allDistances[i];
+                    for (int j = teleports.length; j < nextDist.length; j++) {
+                        double distance = otherDistances[j];
+                        if (!visitedIndexes.contains(j) && distance < minDist) {
+                            nextIndex = j;
+                            minDist = distance;
+
+                            currentTeleport = i;
+                            shouldCreateRoute = true;
+                        }
+                    }
+                }
+            }
+
+            if (shouldCreateRoute) {
+                Coordinate t = allCoordinates.get(currentTeleport);
+                currentRoute = new LinkedList<>(List.of(t));
+                routes.add(currentRoute);
+            }
+            currentRoute.add(allCoordinates.get(nextIndex));
+            visitedIndexes.add(nextIndex);
+        }
+
+        // Merge all routes to create a single list
+        return routes.stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     private double[][] getDistances(List<Coordinate> points) {
@@ -136,7 +125,7 @@ public class Tsp {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    private List<Coordinate> mergeSimilarCoordinates(List<Coordinate> list) {
+    private List<Coordinate> mergeCloseCoordinates(List<Coordinate> list) {
         for (int i = 0; i < list.size(); i++) {
             Coordinate current = list.get(i);
 
