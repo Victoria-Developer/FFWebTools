@@ -17,50 +17,45 @@ public class Tsp {
         List<LinkedList<Coordinate>> routes = new ArrayList<>();
 
         LinkedList<Coordinate> allCoordinates = new LinkedList<>(Arrays.asList(teleports));
-        List<Coordinate> merged = mergeCloseCoordinates(playerC);
-        allCoordinates.addAll(merged);
-        double[][] distances = getDistances(allCoordinates);
+        List<Coordinate> mergedPlayerC = mergeCloseCoordinates(playerC);
+        allCoordinates.addAll(mergedPlayerC);
+        double[][] allDistances = getDistances(allCoordinates);
 
         // Find nearest teleport-coordinate pair
         double minDistance = MAX_DIST;
-        int tIndex = 0;
+        int nearestTeleportInd = 0;
         int nearestCIndex = teleports.length;
         for (int i = 0; i < teleports.length; i++) {
-            double[] nextDist = distances[i];
+            double[] nextDist = allDistances[i];
             for (int j = 0; j < nextDist.length; j++) {
                 double distance = nextDist[j];
                 if (i != j && nextDist[j] < minDistance) {
-                    tIndex = i;
+                    nearestTeleportInd = i;
                     nearestCIndex = j;
                     minDistance = distance;
                 }
             }
         }
 
-        Coordinate teleport = allCoordinates.get(tIndex);
+        Coordinate teleport = allCoordinates.get(nearestTeleportInd);
         Coordinate nearestPoint = allCoordinates.get(nearestCIndex);
         LinkedList<Coordinate> firstRoute = new LinkedList<>(List.of(teleport, nearestPoint));
         routes.add(firstRoute);
-        merged.remove(nearestPoint);
+        mergedPlayerC.remove(nearestPoint);
 
         Set<Integer> visitedIndexes = new HashSet<>();
 
-        Set<Integer> startIndexes = new HashSet<>();
-        for (int i = 0; i < teleports.length; i++) {
-            startIndexes.add(i);
-        }
-
         visitedIndexes.add(nearestCIndex);
         LinkedList<Coordinate> currentRoute = firstRoute;
-        int currentTeleport = tIndex;
+        int currentTeleport = nearestTeleportInd;
         int nextIndex = nearestCIndex; // Start with the nearest player coordinate
 
         // Use Nearest Neighbor to build routes
-        while (visitedIndexes.size() < merged.size() + 1) {
+        while (visitedIndexes.size() < mergedPlayerC.size() + 1) {
             boolean shouldCreateRoute = false;
             double minDist = MAX_DIST;
 
-            double[] nextDist = distances[nextIndex];
+            double[] nextDist = allDistances[nextIndex];
             for (int j = teleports.length; j < nextDist.length; j++) {
                 double distance = nextDist[j];
                 if (!visitedIndexes.contains(j) && distance < minDist) {
@@ -69,18 +64,31 @@ public class Tsp {
                 }
             }
 
-            // Check if there's any other teleport is closer than current one
-            System.out.println("Min distance is " + minDist);
             if (minDist >= THRESHOLD) {
-                for (int index : startIndexes) {
-                    double[] otherDistances = distances[index];
-                    double otherDist = otherDistances[nextIndex];
-                    if (otherDist < minDist) {
-                        nextIndex = index;
-                        minDist = otherDist;
-                        currentTeleport = index;
-                        shouldCreateRoute = true;
-                        System.out.println("Other min distance" + otherDist);
+
+                // Check if any other teleport is closer to the current coordinate
+                for (LinkedList<Coordinate> route : routes) {
+                    int routeLastC = allCoordinates.indexOf(route.getLast());
+                    double[] routeLastCDistances = allDistances[routeLastC];
+                    double routeLastCDistance = routeLastCDistances[nextIndex];
+                    if (routeLastC != nextIndex && routeLastCDistance < minDist) {
+                        minDist = routeLastCDistance;
+                        currentRoute = route;
+                    }
+                }
+
+                // Check if there's any other teleport-coordinate pair with less distance
+                for (int i = 0; i < teleports.length; i++) {
+                    double[] otherDistances = allDistances[i];
+                    for (int j = teleports.length; j < nextDist.length; j++) {
+                        double distance = otherDistances[j];
+                        if (!visitedIndexes.contains(j) && distance < minDist) {
+                            nextIndex = j;
+                            minDist = distance;
+
+                            currentTeleport = i;
+                            shouldCreateRoute = true;
+                        }
                     }
                 }
             }
@@ -89,12 +97,9 @@ public class Tsp {
                 Coordinate t = allCoordinates.get(currentTeleport);
                 currentRoute = new LinkedList<>(List.of(t));
                 routes.add(currentRoute);
-            } else {
-                currentRoute.add(allCoordinates.get(nextIndex));
-                visitedIndexes.add(nextIndex);
             }
-            //currentRoute.add(allCoordinates.get(nextIndex));
-            //visitedIndexes.add(nextIndex);
+            currentRoute.add(allCoordinates.get(nextIndex));
+            visitedIndexes.add(nextIndex);
         }
 
         // Merge all routes to create a single list
