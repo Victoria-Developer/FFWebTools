@@ -19,11 +19,15 @@ public class JsonConverter {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Area areaEntityToDto(AreaEntity areaEntity){
+    public Area areaEntityToDto(AreaEntity areaEntity) {
         Area dto = new Area();
         dto.setName(areaEntity.getName());
         try {
-            dto.setTeleports(objectMapper.readValue(areaEntity.getTeleports(), Coordinate[].class));
+            Coordinate[] teleports = objectMapper.readValue(areaEntity.getTeleports(), Coordinate[].class);
+            for (Coordinate coordinates : teleports) {
+                coordinates.setTeleport(true);
+            }
+            dto.setTeleports(teleports);
         } catch (JsonProcessingException e) {
             System.out.println(e.getMessage());
         }
@@ -31,7 +35,7 @@ public class JsonConverter {
         return dto;
     }
 
-    public Map<String, List<Coordinate>> s(String logs) throws JsonProcessingException {
+    public Map<String, List<Coordinate>> jsonToLogs(String logs) throws JsonProcessingException {
         return objectMapper.readValue(logs, new TypeReference<>() {
         });
     }
