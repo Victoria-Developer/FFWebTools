@@ -42,7 +42,7 @@ public class PathFinderController {
     ) throws JsonProcessingException {
 
         Map<Area, LinkedList<Coordinate>> orderedLogs = new HashMap<>();
-        jsonConverter.s(logs).forEach((areaName, coordinates) ->
+        jsonConverter.jsonToLogs(logs).forEach((areaName, coordinates) ->
                 areaRepository.findByName(areaName).ifPresent(areaEntity -> {
                     Area dto = jsonConverter.areaEntityToDto(areaEntity);
                     LinkedList<Coordinate> tspSolution = tsp.solve(dto.getTeleports(), coordinates);
