@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class LogsParser {
-    private static final String playerCordPattern = "([\uE090-\uE097])(.*)(\uE0BB)([a-zA-Z][a-zA-Z ]+)(.*)";
+    private static final String playerCordPattern = "([\uE090-\uE0E1])(.*)(\uE0BB)([a-zA-Z][a-zA-Z ]+)(.*)";
 
     private record Point(double x, double y) {
     }
@@ -72,8 +72,8 @@ public class LogsParser {
     }
 
     private List<String> findValidSentences(String inputSource) {
-        String[] sSentence = inputSource.split("(?=\\([\uE090-\uE097])");
-        Pattern validLogsPattern = Pattern.compile("\\([\uE090-\uE097].*\uE0BB.*(.*)\\)");
+        String[] sSentence = inputSource.split("(?=\\([\uE090-\uF8FF])");
+        Pattern validLogsPattern = Pattern.compile("\\([\uE090-\uF8FF].*\uE0BB.*(.*)\\)");
 
         ArrayList<String> validSentences = new ArrayList<>();
         for (String s : sSentence) {
