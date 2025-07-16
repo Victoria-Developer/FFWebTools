@@ -1,4 +1,4 @@
-package app.service.mail;
+package app.service;
 
 import app.configuration.ConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;

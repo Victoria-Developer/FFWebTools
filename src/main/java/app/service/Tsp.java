@@ -1,4 +1,4 @@
-package app.service.tsp;
+package app.service;
 
 import app.dto.Coordinate;
 import org.springframework.stereotype.Service;
