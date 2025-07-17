@@ -4,10 +4,9 @@ $("#submitLogs").click(function(e) {
     $.ajax({
         url: "/optimalRoute/calculate",
         type: "POST",
+        contentType: 'application/json',
         dataType: 'json',
-        data: {
-            "logs" : JSON.stringify(allLogs)
-        },
+        data: JSON.stringify(allLogs),
         success: function(response) {
             repaintTextArea();
             if (jQuery.isEmptyObject(response)) return;
@@ -21,10 +20,9 @@ function parseLogs(text){
     $.ajax({
         url: "/optimalRoute/parse",
         type: "POST",
+        contentType: 'application/json',
         dataType: 'json',
-        data: {
-            "inputLogs": text
-        },
+        data: JSON.stringify({ inputLogs: text }),
         success: function(response) {
             repaintTextArea();
             if (jQuery.isEmptyObject(response)) return;
@@ -50,7 +48,6 @@ $('.chatLogs').on('input', function(e) {
         repaintTextArea();
         return;
     }
-    console.log(text);
     parseLogs(text);
 });
 

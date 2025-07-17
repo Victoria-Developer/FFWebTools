@@ -22,7 +22,7 @@ function updateMapCanvas(response) {
         background.src = "/images/areas" + data.areaFileName;
 
         background.onload = function () {
-            const logs = JSON.parse(data.logs);
+            const logs = data.logs;
 
             canvas.width = background.width;
             canvas.height = background.height;
