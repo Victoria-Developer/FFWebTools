@@ -1,6 +1,7 @@
 $("#submitLogs").click(function(e) {
     e.preventDefault();
     removeLogsFromAllLogs();
+    $("#statusLabel").text("Calculating path...");
     $.ajax({
         url: "/optimalRoute/calculate",
         type: "POST",
@@ -9,14 +10,20 @@ $("#submitLogs").click(function(e) {
         data: JSON.stringify(allLogs),
         success: function(response) {
             repaintTextArea();
+            $("#statusLabel").text("Path is calculated.");
             if (jQuery.isEmptyObject(response)) return;
             updateLogsPanel(response, true);
             updateMapCanvas(response);
+        },
+        error: function(e){
+            repaintTextArea();
+            $("#statusLabel").text("Path calculation error.");
         }
     });
 });
 
 function parseLogs(text){
+    $("#statusLabel").text("Parsing logs...");
     $.ajax({
         url: "/optimalRoute/parse",
         type: "POST",
@@ -25,9 +32,14 @@ function parseLogs(text){
         data: JSON.stringify({ inputLogs: text }),
         success: function(response) {
             repaintTextArea();
+            $("#statusLabel").text("Logs are parsed!");
             if (jQuery.isEmptyObject(response)) return;
             $('.logsWrapperPanel').show();
             updateLogsPanel(response, false);
+        },
+        error: function(e){
+            repaintTextArea();
+            $("#statusLabel").text("Logs parsing error.");
         }
     });
 }
