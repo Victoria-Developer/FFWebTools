@@ -20,7 +20,7 @@ function updateLogsPanel(response, shouldRepaint) {
 
     response.forEach(data => {
         const areaName = data.areaName;
-        const logs = JSON.parse(data.logs);
+        const logs = data.logs;
 
         if (!allLogs[areaName]) {
             allLogs[areaName] = [];
@@ -40,7 +40,6 @@ function updateLogsPanel(response, shouldRepaint) {
             addListChild(innerUl, log, spanText, liBackgroundColor, areaName);
        });
     });
-    console.log(allLogs);
 }
 
 function createList(ul, areaName) {
