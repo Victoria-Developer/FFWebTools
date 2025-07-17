@@ -6,18 +6,16 @@ import app.entities.AreaEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class JsonConverter {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public Area areaEntityToDto(AreaEntity areaEntity) {
         Area dto = new Area();
@@ -28,39 +26,35 @@ public class JsonConverter {
                 coordinates.setTeleport(true);
             }
             dto.setTeleports(teleports);
-        } catch (JsonProcessingException e) {
-            System.out.println(e.getMessage());
-        }
+        } catch (JsonProcessingException ignored) {}
         dto.setFileName(areaEntity.getFileName());
         return dto;
     }
 
     public Map<String, List<Coordinate>> jsonToLogs(String logs) throws JsonProcessingException {
-        return objectMapper.readValue(logs, new TypeReference<>() {
-        });
+        return objectMapper.readValue(logs, new TypeReference<>() {});
     }
 
     public String tspSolutionToJson(Map<Area, LinkedList<Coordinate>> orderedLogs) throws JsonProcessingException {
-        JSONArray json = new JSONArray();
+        List<Object> result = new ArrayList<>();
         for (Map.Entry<Area, LinkedList<Coordinate>> entry : orderedLogs.entrySet()) {
-            Area area = entry.getKey();
-            JSONObject o = app.util.JsonConverter.mapEntryToJsonObject(
-                    area.getName(), area.getFileName(), entry.getValue()
-            );
-            json.put(o);
+            Map<String, Object> obj = new LinkedHashMap<>();
+            obj.put("areaName", entry.getKey().getName());
+            obj.put("areaFileName", entry.getKey().getFileName());
+            obj.put("logs", entry.getValue());
+            result.add(obj);
         }
-        return json.toString();
+        return objectMapper.writeValueAsString(result);
     }
 
     public String parsedLogsToJson(Map<String, List<Coordinate>> parsedLogs) throws JsonProcessingException {
-        JSONArray json = new JSONArray();
+        List<Object> result = new ArrayList<>();
         for (Map.Entry<String, List<Coordinate>> entry : parsedLogs.entrySet()) {
-            JSONObject o = app.util.JsonConverter.mapEntryToJsonObject(
-                    entry.getKey(), null, entry.getValue()
-            );
-            json.put(o);
+            Map<String, Object> obj = new LinkedHashMap<>();
+            obj.put("areaName", entry.getKey());
+            obj.put("logs", entry.getValue());
+            result.add(obj);
         }
-        return json.toString();
+        return objectMapper.writeValueAsString(result);
     }
-
 }

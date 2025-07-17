@@ -50,7 +50,6 @@ $('.chatLogs').on('input', function(e) {
         repaintTextArea();
         return;
     }
-    console.log(text);
     parseLogs(text);
 });
 
