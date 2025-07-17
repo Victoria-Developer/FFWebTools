@@ -31,10 +31,6 @@ public class JsonConverter {
         return dto;
     }
 
-    public Map<String, List<Coordinate>> jsonToLogs(String logs) throws JsonProcessingException {
-        return objectMapper.readValue(logs, new TypeReference<>() {});
-    }
-
     public String tspSolutionToJson(Map<Area, LinkedList<Coordinate>> orderedLogs) throws JsonProcessingException {
         List<Object> result = new ArrayList<>();
         for (Map.Entry<Area, LinkedList<Coordinate>> entry : orderedLogs.entrySet()) {
