@@ -20,13 +20,12 @@
     <input type="submit" id="submitLogs" value="Calculate">
     <input type="reset" class="logsReset" value="Reset">
     </p>
-
+    <p class="statusLabel" id="statusLabel"></p>
     <div class="logsWrapperPanel">
     <div class="coordinatesPanel">
     <ul class="logsPanel" id="logsPanelId"></ul>
     </div>
     </div>
-
 </form>
 </div>
 

@@ -12,6 +12,8 @@ function getLogInfoText(log) {
 function updateMapCanvas(response) {
     const canvasPanel = document.getElementById("canvasPanel");
     canvasPanel.innerHTML = "";
+    const width = 800;
+    const height = 800;
 
     response.forEach((data) => {
         const canvas = document.createElement("canvas");
@@ -24,9 +26,9 @@ function updateMapCanvas(response) {
         background.onload = function () {
             const logs = data.logs;
 
-            canvas.width = background.width;
-            canvas.height = background.height;
-            ctx.drawImage(background, 0, 0);
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(background, 0, 0, width, height);
 
             for (let step = 0; step < logs.length; step++) {
                 ctx.strokeStyle = "purple";
@@ -40,7 +42,7 @@ function updateMapCanvas(response) {
                 const src = "/images/" + logFileName;
 
                 // Calculate scaled game point
-                const scaledPoint1 = scalePoint(log, background.height, background.width);
+                const scaledPoint1 = scalePoint(log, height, width);
                 canvasScaledPointsMap.set(log, { x: scaledPoint1.x, y: scaledPoint1.y });
                 ctx.moveTo(scaledPoint1.x, scaledPoint1.y);
                 var matches = log.name.match(/\b(\w)/g);
@@ -49,7 +51,7 @@ function updateMapCanvas(response) {
 
                 // Draw line between two points on the map
                 if (step !== logs.length - 1 && logs[step + 1].teleport === false) {
-                    const scaledPoint2 = scalePoint(logs[step + 1], background.height, background.width);
+                    const scaledPoint2 = scalePoint(logs[step + 1], height, width);
                     ctx.lineTo(scaledPoint2.x, scaledPoint2.y);
                 }
                 ctx.stroke();
