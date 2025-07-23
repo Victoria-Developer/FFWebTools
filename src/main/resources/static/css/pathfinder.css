@@ -63,5 +63,11 @@
 
 .statusLabel {
     color: blue;
-    margin: 5px;
+    padding-bottom: 5px;
+}
+
+#inputlogs{
+    resize: none;
+    width: 300;
+    height: 200;
 }

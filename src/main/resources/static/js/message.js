@@ -6,7 +6,7 @@ $(document).ready(function() {
         var message = $("#message").val()
         clearFields();
         $.ajax({
-            url: "/contact/message",
+            url: "/message",
             type: "POST",
             dataType: 'json',
             data: {
@@ -15,7 +15,12 @@ $(document).ready(function() {
                 "message": message
             },
             success: function(response) {
-                // show success dialog
+                console.log('ok')
+                $("#statusLabel").text('Your message was sent.')
+            },
+            error: function(e){
+                console.log(e)
+                $("#statusLabel").text("Message sending error.");
             }
         });
     });
@@ -24,5 +29,11 @@ $(document).ready(function() {
         $("#senderName").val('');
         $("#emailFrom").val('');
         $("#message").val('');
+        $("#statusLabel").text('')
     }
+
+    $(".contactsTextField").on("keydown", function () {
+        const id = this.id;
+        $(`label[for='${id}']`).css("display", "none");
+    });
 });

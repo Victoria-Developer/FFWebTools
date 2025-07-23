@@ -1,39 +1,36 @@
-{% include "navigation" %}
-<link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/contacts.css">
 <html>
 <head>
-<title>Contacts</title>
+  <meta charset="UTF-8">
+  <title>Contacts</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/contacts.css">
 </head>
 <body>
-<div class="contactsWrapper">
-<img src="/images/contacts_img.webp"></img>
-<form id="contactForm">
-<div class="messageFormWrapper">
-<p>Our best call manager is waiting for your purrfect message.</p>
-<div class="input-container">
-
-<input type="text" id="senderName" required pattern="[A-Za-z0-9 ]{1,20}">
-<label for="senderName">Your name</label>
-</div>
-
-<div class="input-container">
-<input type="email" name="emailFrom" id="emailFrom" required>
-<label for="emailFrom">Email</label>
-</div>
-
-<div class="input-container">
-<textarea name="message" id="message" required></textarea>
-<label for="message">Message</label>
-</div>
-
-<p><input type="submit" class="mailSubmit" value="Send message">
-<input type="reset" class="mailFormReset" value="Reset">
-</div>
-</form>
-</div>
-
+  <div class="contactsWrapper">
+    <form id="contactForm">
+      <div class="messageFormWrapper">
+        <h2>Contact me</h2>
+        <p class="statusLabel" id="statusLabel"></p>
+        <div class="input-container">
+          <input type="text" id="senderName" class="contactsTextField" required pattern="[A-Za-z0-9 ]{1,20}">
+          <label for="senderName" class="contactsLabel">Your name</label>
+        </div>
+        <div class="input-container">
+          <input type="email" name="emailFrom" id="emailFrom" class="contactsTextField" required>
+          <label for="emailFrom" class="contactsLabel">Email</label>
+        </div>
+        <div class="input-container">
+          <textarea name="message" id="message" class="contactsTextField" required></textarea>
+          <label for="message" class="contactsLabel">Message</label>
+        </div>
+        <p>
+          <input type="submit" class="mailSubmit" value="Send message">
+          <input type="reset" class="mailFormReset" value="Reset">
+        </p>
+      </div>
+    </form>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/message.js"></script>
 </body>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script type="text/javascript" src="/js/message.js"></script>
 </html>
