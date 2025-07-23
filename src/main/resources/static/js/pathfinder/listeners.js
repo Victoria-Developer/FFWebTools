@@ -24,21 +24,21 @@ $("#submitLogs").click(function(e) {
 
 function parseLogs(text){
     $("#statusLabel").text("Parsing logs...");
+    let logs = text
+    repaintTextArea();
     $.ajax({
         url: "/ff/optimalRoute/parse",
         type: "POST",
         contentType: 'application/json',
         dataType: 'json',
-        data: JSON.stringify({ inputLogs: text }),
+        data: JSON.stringify({ inputLogs: logs }),
         success: function(response) {
-            repaintTextArea();
             $("#statusLabel").text("Logs are parsed!");
             if (jQuery.isEmptyObject(response)) return;
             $('.logsWrapperPanel').show();
             updateLogsPanel(response, false);
         },
         error: function(e){
-            repaintTextArea();
             $("#statusLabel").text("Logs parsing error.");
         }
     });
@@ -79,6 +79,5 @@ function repaintTextArea() {
 }
 
 function resizeTextArea(textArea) {
-    textArea.style.height = '';
-    textArea.style.height = textArea.scrollHeight + 'px';
+    textArea.style.height = '300 px';
 }
