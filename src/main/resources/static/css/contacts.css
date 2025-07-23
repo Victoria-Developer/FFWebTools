@@ -1,17 +1,14 @@
-.contactsWrapper{
-    display: flex;
-    flex-direction: row;
-    text-align: initial;
-    align-items: center;
+#message{
+    resize: none;
+    width: 400;
+    height: 300;
 }
 
 .messageFormWrapper{
     display: flex;
     flex-direction: column;
-    text-align: initial;
     align-items: center;
     justify-content: space-evenly;
-    margin-left: 10%;
 }
 
 .input-container {
@@ -21,11 +18,11 @@
 }
 
 .input-container input, .input-container textarea {
-    height: 32px;
+    height: 40px;
     line-height: 24px;
     border-radius: 8px;
     border: 1px solid #dcdcdc;
-    min-width: 300px;
+    min-width: 400px;
     padding: 4px 8px;
     transition: all .2s ease;
 }
@@ -43,14 +40,6 @@
 .input-container input:focus {
     outline: none;
     border: 1px solid #3f51b5;
-}
-
-.input-container input:valid + label,
-.input-container input:focus + label,
-.input-container textarea:valid + label,
-.input-container textarea:focus + label{
-    top: -20px;
-    color: #3f51b5;
 }
 
 .input-container {
@@ -60,20 +49,19 @@
 }
 
 .input-container> *:not(:last-child){
-    margin-bottom: 30px;
+    margin-bottom: 5;
 }
 
 .input-container input {
-    height: 32px;
+    height: 40px;
     line-height: 24px;
     border-radius: 8px;
     border: 1px solid #dcdcdc;
-    min-width: 300px;
     padding: 4px 8px;
     transition: all .2s ease;
 }
 
-.input-container label {
+.label {
     position: absolute;
     top: 12px;
     left: 4px;
@@ -86,12 +74,6 @@
 .input-container input:focus {
     outline: none;
     border: 1px solid #3f51b5;
-}
-
-.input-container input:valid + label,
-.input-container input:focus + label {
-    top: -20px;
-    color: #3f51b5;
 }
 
 #message{

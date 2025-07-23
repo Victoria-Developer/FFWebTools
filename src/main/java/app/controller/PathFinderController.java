@@ -30,12 +30,17 @@ public class PathFinderController {
     @Autowired
     private Tsp tsp;
 
-    @GetMapping("/optimalRoute")
+    @GetMapping("/ff")
+    public String home() {
+        return "ff_about";
+    }
+
+    @GetMapping("/ff/optimalRoute")
     public String optimalRoute() {
         return "optimalRoute";
     }
 
-    @PostMapping(value = "/optimalRoute/calculate", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "ff/optimalRoute/calculate", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public String calculatePath(@RequestBody Map<String, List<Coordinate>> logs) throws JsonProcessingException {
         Map<Area, LinkedList<Coordinate>> orderedLogs = new HashMap<>();
@@ -51,7 +56,7 @@ public class PathFinderController {
         return jsonConverter.tspSolutionToJson(orderedLogs);
     }
 
-    @PostMapping(value = "/optimalRoute/parse", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/ff/optimalRoute/parse", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public String parseLogs(@RequestBody Map<String, String> body) throws JsonProcessingException {
         Map<String, List<Coordinate>> logs = logsParser.parseLogs(body.get("inputLogs"));

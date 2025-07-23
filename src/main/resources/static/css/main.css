@@ -81,12 +81,6 @@ input[type=checkbox]:checked::after {
     transform: translate(-50%, -50%);
 }
 
-textArea{
-    overflow: auto;
-    max-width: 300px;
-    max-height: 400px;
-}
-
 input[type=text], input[type=email], textArea{
     padding: 12px 20px;
     margin: 8px 0;

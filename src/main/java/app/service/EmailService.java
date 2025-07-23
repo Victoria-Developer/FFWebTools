@@ -2,6 +2,7 @@ package app.service;
 
 import app.configuration.ConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class EmailService extends JavaMailSenderImpl {
         props.put("mail.debug", "true");
     }
 
-    public void sendSimpleMessage(String emailFrom, String senderName, String text) {
+    public void sendSimpleMessage(String emailFrom, String senderName, String text) throws MailException {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(emailFrom);
         message.setTo(configProp.getConfigValue("spring.mail.receiver.username"));
