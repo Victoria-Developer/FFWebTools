@@ -1,24 +1,66 @@
 <html>
 <head>
-<title>Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/home.css">
 </head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/home.css">
 <body>
+  <div class="main">
+    <div class="aboutMe">
+      <h2>About Me</h2>
+      <p>
+        Hello, I'm a full-stack web and mobile developer. <br>
+        I'm passionate about building cross-platform easy to use applications.
+      </p>
+    </div>
 
-{% include "navigation" %}
+    <h2>Projects</h2>
+    <div class="projectGrid">
 
-<div class="main">
-<div class="logo"></div>
-<div>
-<p>Going to an adventure in Eorzea?
-Don't get lost, check <a href="/optimalRoute" class="mapRoute">this pathfinder</a> in your personal Tomestone!
+      <div class="projectCard">
+        <div class="img"><img src="../images/projects/overlay_translator.png"></div>
+        <div class="cardContent">
+            <h3>Overlay Translator</h3>
+            <p>
+              Light-weight desktop translator with image-to-text recognition.
+              App supports customizable global hotkeys for selecting area on screen.
+            </p>
+            <a href="https://github.com/VictoriaTaiwan/OverlayTranslator/releases" class="overlayTranslatorRef">
+              Download
+            </a>
+        </div>
+      </div>
 
-</p>
-</div>
-</div>
+      <div class="projectCard">
+        <div class="img"><img src="../images/projects/fitsy.png"></div>
+        <div class="cardContent">
+             <h3>AI powered menu generator</h3>
+             <p>
+                Cross-platform mobile app.
+             </p>
+             <a href="https://play.google.com/store/apps/details?id=com.fitsy.fitsy" class="ffRouteCalculatorRef">
+                Download on Google Play
+             </a>
+        </div>
+      </div>
 
+      <div class="projectCard">
+        <div class="img"><img src="../images/projects/tsp_solver.png"></div>
+        <div class="cardContent">
+            <h3>Fastest Route Calculator for Final Fantasy</h3>
+            <p>
+                TSP solver with in-game logs parsing.
+            </p>
+            <a href="ff/optimalRoute" class="ffRouteCalculatorRef">
+                Live app
+            </a>
+        </div>
+      </div>
+
+    {% include "contacts" %}
+    </div>
+  </div>
 </body>
 </html>
