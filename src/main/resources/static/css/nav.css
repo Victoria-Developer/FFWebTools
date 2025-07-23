@@ -10,7 +10,7 @@
       padding: 0.5rem 2rem;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      flex-direction: row-reverse;
+      flex-direction: column;
     }
 
     .top-navigation ul {

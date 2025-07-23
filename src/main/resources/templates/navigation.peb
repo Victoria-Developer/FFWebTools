@@ -10,6 +10,7 @@
 </div>
 <nav class="top-navigation">
     <ul>
+     <li> <a href="/" class="home">Home</a> </li>
      <li> <a href="/ff" class="home">About</a> </li>
      <li> <a href="/ff/optimalRoute" class="mapRoute">Map route</a> </li>
     </ul>
