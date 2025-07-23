@@ -2,9 +2,20 @@
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
-      gap: 2rem;
-      padding: 2rem;
+      gap: 15rem;
+      padding: 10rem;
       justify-content: center;
+    }
+
+    .topDescription {
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         background: #CFAF8D;
+         gap: 1rem;
+         width: 700;
+         align-self: center;
+         padding: 1rem;
     }
 
     .projectGrid {
@@ -21,10 +32,10 @@
       flex: 1 1 300px;
       flex-direction: row;
       max-width: 800px;
-      border: 1px solid #ccc;
+      border: 1px solid #B4977B;
       border-radius: 12px;
       padding: 1.5rem;
-      background-color: #f9f9f9;
+      background-color: #E1C8A5;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
@@ -57,7 +68,35 @@
       max-height: 600px;
     }
 
-    .cardContent{
+    .imgIcon img{
+      height: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .cardContent {
         flex-direction: column;
         display: flex;
+    }
+
+    .socials {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .appFooter {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #CFAF8D;
+        padding: 1rem;
+    }
+
+    .aboutMe {
+        display: flex;
+        justify-content: center;
+        background: #CFAF8D;
+        padding: 1rem;
     }

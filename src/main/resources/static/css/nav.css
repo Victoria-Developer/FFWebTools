@@ -1,41 +1,52 @@
-.top-navigation {
-    background: #A16B4C;
-    margin: 0 0 0 0;
-    display: inline-block;
-    text-align: center;
-    paddling: 0;
-    width: 100%;
-    position: sticky;
-    top: 0;
-}
+    .top-navigation {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #8F6F56;
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      flex-direction: row-reverse;
+    }
 
-.top-navigation ul{
-    list-style-type: none;
-    margin:0;
-}
+    .top-navigation ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 1rem;
+      color: #000000;
+    }
 
-.top-navigation li{
-    display:inline
-}
+    .top-navigation li {
+      display: inline;
+    }
 
-.top-navigation li a {
-    display:inline-block;
-    list-style-type: none;
-    color: #000000;
-    padding: 8px 16px;
-    text-decoration: none;
-    text-align: center;
-}
+    .top-navigation li a {
+      display: inline-block;
+       padding: 0.5rem 1rem;
+       border-radius: 6px;
+       text-decoration: none;
+       color: fff;
+       font-weight: 500;
+       transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-.top-navigation li a:hover {
-    background-color: #555;
-    color: white;
-}
+    .top-navigation li a:hover {
+      background-color: #A16B4C;
+      color: white;
+    }
 
-h1 {
-  color: black;
-  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
-}
+    h1 {
+      color: black;
+      text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+      font-size: 2.5rem;
+      margin: 0;
+    }
 
 .banner{
     align-items: center;

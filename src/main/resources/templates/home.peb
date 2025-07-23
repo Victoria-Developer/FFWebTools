@@ -3,42 +3,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home</title>
+  <link rel="stylesheet" href="/css/nav.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
+  <nav class="top-navigation">
+    <ul>
+        <li> <a href="#">Home</a> </li>
+        <li> <a href="#projects">Projects</a> </li>
+        <li> <a href="#about">About me</a> </li>
+        <li> <a href="#contact">Contact</a> </li>
+    </ul>
+  </nav>
   <div class="main">
-    <div class="aboutMe">
-      <h2>About Me</h2>
+    <div class = "topDescription">
+      <div class="imgIcon"><img src="../images/icons/top_icon.png"></div>
       <p>
-        Hello, I'm a full-stack web and mobile developer. <br>
-        I'm passionate about building cross-platform easy to use applications.
+        Hello, I'm a software developer located in Taiwan.
+        I'm passionate about building web and mobile applications.
       </p>
     </div>
 
-    <h2>Projects</h2>
-    <div class="projectGrid">
-
+    <div class="projectGrid" id="projects">
+      <h2>Projects</h2>
       <div class="projectCard">
-        <div class="img"><img src="../images/projects/overlay_translator.png"></div>
+        <div class="img"><img src="../images/projects/tsp_solver.png"></div>
         <div class="cardContent">
-            <h3>Overlay Translator</h3>
+            <h3>TSP solver for Final Fantasy</h3>
             <p>
-              Light-weight desktop translator with image-to-text recognition.
-              App supports customizable global hotkeys for selecting area on screen.
+                A full-stack web application that parses in-game logs and calculates the fastest route.
+                The algorithm accounts for multiple starting points, such as teleports, to optimize the path efficiently.
             </p>
-            <a href="https://github.com/VictoriaTaiwan/OverlayTranslator/releases" class="overlayTranslatorRef">
-              Download
-            </a>
+            <a href="ff/optimalRoute" class="ffRouteCalculatorRef">Live app</a>
         </div>
       </div>
 
       <div class="projectCard">
         <div class="img"><img src="../images/projects/fitsy.png"></div>
         <div class="cardContent">
-             <h3>AI powered menu generator</h3>
+             <h3>New-gen menu generator</h3>
              <p>
-                Cross-platform mobile app.
+                Fitsy is a cross-platform mobile app that generates AI powered meal plans in seconds.
+                It automatically calculates the optimal daily calorie intake based on the user’s lifestyle and goals.
              </p>
              <a href="https://play.google.com/store/apps/details?id=com.fitsy.fitsy" class="ffRouteCalculatorRef">
                 Download on Google Play
@@ -47,20 +54,42 @@
       </div>
 
       <div class="projectCard">
-        <div class="img"><img src="../images/projects/tsp_solver.png"></div>
+        <div class="img"><img src="../images/projects/overlay_translator.png"></div>
         <div class="cardContent">
-            <h3>Fastest Route Calculator for Final Fantasy</h3>
+            <h3>Overlay Translator</h3>
             <p>
-                TSP solver with in-game logs parsing.
+              A lightweight desktop translator with image-to-text (OCR) recognition.
+              It supports customizable global hotkeys for quickly selecting areas on the screen.
             </p>
-            <a href="ff/optimalRoute" class="ffRouteCalculatorRef">
-                Live app
+            <a href="https://github.com/VictoriaTaiwan/OverlayTranslator/releases" class="overlayTranslatorRef">
+              Download on Github
             </a>
         </div>
       </div>
 
+      </div>
+
+    <div id="about" class="topDescription">
+        <p>
+        I'm a mobile and full-stack web developer with a strong interest in cross-platform technologies
+        and user-friendly design. I’m passionate about Flutter for mobile development, and I enjoy building
+        reliable backend services with Spring Boot and responsive web applications with Angular.
+        </p>
+    </div>
+
     {% include "contacts" %}
     </div>
   </div>
+    <footer class="appFooter">
+        <div class="socials">
+            <a href="https://github.com/VictoriaTaiwan" class="socialsGithub">
+                <div class="imgIcon"><img src="../images/icons/github_logo.png"></div>
+            </a>
+            <a href="mailto:shalyginavictoria0@gmail.com" class="socialsMail">
+                <div class="imgIcon"><img src="../images/icons/mail_logo.png"></div>
+            </a>
+        </div>
+      <p class="copyright">Victoria Shalygina ©2025</p>
+    </footer>
 </body>
 </html>
