@@ -71,6 +71,11 @@ body {
   transition: color 0.3s ease;
 }
 
+.projectCard video {
+    max-width: 600px;
+    max-height: 600px;
+}
+
 .img {
   flex-shrink: 0;
   max-width: 600px;
