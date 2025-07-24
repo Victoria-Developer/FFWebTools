@@ -17,7 +17,7 @@
     </ul>
   </nav>
   <div class="main">
-    <div class = "topDescription">
+    <div class="topDescription">
       <div class="imgIcon"><img src="../images/icons/top_icon.png"></div>
       <p>
         Hello, I'm a software developer located in Taiwan.
@@ -28,7 +28,10 @@
     <div class="projectGrid" id="projects">
       <h2>Projects</h2>
       <div class="projectCard">
-        <div class="img"><img src="../images/projects/tsp_solver.png"></div>
+         <video controls autoplay loop>
+          <source src="../videos/ff14_tools_example.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
         <div class="cardContent">
             <h3>TSP solver for Final Fantasy</h3>
             <p>
@@ -54,7 +57,10 @@
       </div>
 
       <div class="projectCard">
-        <div class="img"><img src="../images/projects/overlay_translator.png"></div>
+         <video controls autoplay loop>
+          <source src="../videos/overlay_translator_example.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
         <div class="cardContent">
             <h3>Overlay Translator</h3>
             <p>
