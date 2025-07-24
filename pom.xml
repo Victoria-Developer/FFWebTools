@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.6</version>
+        <version>3.5.3</version>
     </parent>
 
     <dependencies>
@@ -28,13 +28,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-            <version>2.7.2</version>
+            <version>3.5.3</version>
         </dependency>
 
         <dependency>
             <groupId>io.pebbletemplates</groupId>
             <artifactId>pebble-spring-boot-starter</artifactId>
-            <version>3.1.5</version>
+            <version>3.2.4</version>
         </dependency>
 
         <dependency>
