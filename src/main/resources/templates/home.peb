@@ -70,11 +70,44 @@
       </div>
 
     <div id="about" class="aboutMe">
+        <h2>About me</h2>
         <p>
-        I'm a mobile and full-stack web developer with a strong interest in cross-platform technologies
-        and user-friendly design. I’m passionate about Flutter for mobile development, and I enjoy building
-        reliable backend services with Spring Boot and responsive web applications with Angular.
+        I'm full-stack web and mobile developer with a strong interest in cross-platform technologies
+        and user-friendly design. I started my career as a native Android developer, building apps with Kotlin,
+        and later used that foundation to launch my own cross-platform mobile application using Flutter.
         </p>
+
+        <section class="skills-grid">
+          <h2>My Skills</h2>
+
+          <div class="skill-category">
+            <h3>Programming Languages</h3>
+            <ul class="skill-list">
+              <li>Kotlin</li>
+        	  <li>Dart</li>
+        	  <li>Java</li>
+        	  <li>Typescript</li>
+            </ul>
+          </div>
+
+          <div class="skill-category">
+            <h3>Frameworks and Technologies</h3>
+            <ul class="skill-list">
+              <li>Android</li>
+              <li>Flutter</li>
+        	  <li>Spring Boot</li>
+        	  <li>Angular</li>
+            </ul>
+          </div>
+
+          <div class="skill-category">
+            <h3>Databases</h3>
+            <ul class="skill-list">
+              <li>PostgreSQL</li>
+              <li>Room</li>
+            </ul>
+          </div>
+        </section>
     </div>
 
     {% include "contacts" %}
