@@ -9,5 +9,5 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-alpine
 VOLUME /tmp
 COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-XX:+UseG1GC", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-XX:+UseContainerSupport", "-XX:+UseSerialGC", "-jar", "/app.jar"]
 EXPOSE 8080
