@@ -3,7 +3,7 @@ $("#submitLogs").click(function(e) {
     removeLogsFromAllLogs();
     $("#statusLabel").text("Calculating path...");
     $.ajax({
-        url: "/ff/optimalRoute/calculate",
+        url: "/route/calculate",
         type: "POST",
         contentType: 'application/json',
         dataType: 'json',
@@ -27,7 +27,7 @@ function parseLogs(text){
     let logs = text
     repaintTextArea();
     $.ajax({
-        url: "/ff/optimalRoute/parse",
+        url: "/route/parse",
         type: "POST",
         contentType: 'application/json',
         dataType: 'json',

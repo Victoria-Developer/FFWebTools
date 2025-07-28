@@ -3,132 +3,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home</title>
-  <link rel="stylesheet" href="/css/nav.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-  <nav class="top-navigation">
-    <ul>
-        <li> <a href="#">Home</a> </li>
-        <li> <a href="#projects">Projects</a> </li>
-        <li> <a href="#about">About me</a> </li>
-        <li> <a href="#contact">Contact</a> </li>
-    </ul>
-  </nav>
+  {% include "navigation" %}
   <div class="main">
-    <div class="topDescription">
-      <div class="imgIcon"><img src="../images/icons/top_icon.png"></div>
+    <div class="logo"></div>
+    <div>
       <p>
-        Hello, I'm a software developer located in Taiwan.
-        I'm passionate about building web and mobile applications.
+        Going to an adventure in Eorzea?<br>
+        Don't get lost, check
+        <a href="/route" class="mapRoute">this pathfinder</a>
+        in your personal Tomestone!
       </p>
     </div>
-
-    <div class="projectGrid" id="projects">
-      <h2>Projects</h2>
-      <div class="projectCard">
-         <video controls autoplay loop>
-          <source src="../videos/ff14_tools_example.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <div class="cardContent">
-            <h3>TSP solver for Final Fantasy</h3>
-            <p>
-                A full-stack web application that parses in-game logs and calculates the fastest route.
-                The algorithm accounts for multiple starting points, such as teleports, to optimize the path efficiently.
-            </p>
-            <a href="ff/optimalRoute" class="ffRouteCalculatorRef">Live app</a>
-        </div>
-      </div>
-
-      <div class="projectCard">
-        <div class="img"><img src="../images/projects/fitsy.png"></div>
-        <div class="cardContent">
-             <h3>New-gen menu generator</h3>
-             <p>
-                Fitsy is a cross-platform mobile app that generates AI powered meal plans in seconds.
-                It automatically calculates the optimal daily calorie intake based on the user’s lifestyle and goals.
-             </p>
-             <a href="https://play.google.com/store/apps/details?id=com.fitsy.fitsy" class="ffRouteCalculatorRef">
-                Download on Google Play
-             </a>
-        </div>
-      </div>
-
-      <div class="projectCard">
-         <video controls autoplay loop>
-          <source src="../videos/overlay_translator_example.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <div class="cardContent">
-            <h3>Overlay Translator</h3>
-            <p>
-              A lightweight desktop translator with image-to-text (OCR) recognition.
-              It supports customizable global hotkeys for quickly selecting areas on the screen.
-            </p>
-            <a href="https://github.com/VictoriaTaiwan/OverlayTranslator/releases" class="overlayTranslatorRef">
-              Download on Github
-            </a>
-        </div>
-      </div>
-
-      </div>
-
-    <div id="about" class="aboutMe">
-        <h2>About me</h2>
-        <p>
-        I'm full-stack web and mobile developer with a strong interest in cross-platform technologies
-        and user-friendly design. I started my career as a native Android developer, building apps with Kotlin,
-        and later used that foundation to launch my own cross-platform mobile application using Flutter.
-        </p>
-
-        <section class="skills-grid">
-          <h2>My Skills</h2>
-
-          <div class="skill-category">
-            <h3>Programming Languages</h3>
-            <ul class="skill-list">
-              <li>Kotlin</li>
-        	  <li>Dart</li>
-        	  <li>Java</li>
-        	  <li>Typescript</li>
-            </ul>
-          </div>
-
-          <div class="skill-category">
-            <h3>Frameworks and Technologies</h3>
-            <ul class="skill-list">
-              <li>Android</li>
-              <li>Flutter</li>
-        	  <li>Spring Boot</li>
-        	  <li>Angular</li>
-            </ul>
-          </div>
-
-          <div class="skill-category">
-            <h3>Databases</h3>
-            <ul class="skill-list">
-              <li>PostgreSQL</li>
-              <li>Room</li>
-            </ul>
-          </div>
-        </section>
-    </div>
-
-    {% include "contacts" %}
-    </div>
   </div>
-    <footer class="appFooter">
-        <div class="socials">
-            <a href="https://github.com/VictoriaTaiwan" class="socialsGithub">
-                <div class="imgIcon"><img src="../images/icons/github_logo.png"></div>
-            </a>
-            <a href="mailto:shalyginavictoria0@gmail.com" class="socialsMail">
-                <div class="imgIcon"><img src="../images/icons/mail_logo.png"></div>
-            </a>
-        </div>
-      <p class="copyright">Victoria Shalygina ©2025</p>
-    </footer>
 </body>
 </html>
