@@ -1,203 +1,25 @@
-body {
-  font-family: 'Lato', sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 5%;
 }
 
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: 6rem;
-  padding: 4rem 2rem;
-  justify-content: center;
-  max-width: 960px;
-  margin: 0 auto;
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 500px;
+    background-image: url("../images/adventure.jpg");
+    background-position: center;
+    background-size: cover;
 }
 
-.topDescription {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background: #CFAF8D;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 700px;
-  align-self: center;
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.topDescription .imgIcon img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid #A16B4C;
-  object-fit: cover;
-}
-
-.projectGrid {
-  display: grid;
-  gap: 2rem;
-  justify-content: center;
-  max-width: 960px;
-  padding: 1rem;
-}
-
-.projectCard {
-  display: flex;
-  flex-direction: row;
-  max-width: 900px;
-  border: 1px solid #B4977B;
-  border-radius: 12px;
-  padding: 1.5rem;
-  background-color: #E1C8A5;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.projectCard h2,
-.projectCard h3 {
-  margin-top: 0;
-  color: #6B4A36;
-}
-
-.projectCard a {
-  margin-top: 0.5rem;
-  color: #0066cc;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.projectCard video {
-    max-width: 600px;
-    max-height: 600px;
-}
-
-.img {
-  flex-shrink: 0;
-  max-width: 600px;
-  max-height: 600px;
-  margin-right: 1.5rem;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 12px;
-}
-
-.cardContent {
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-  flex-grow: 1;
-}
-
-.aboutMe,
-.topDescription#about {
-  display: flex;
-  justify-content: center;
-  background: #CFAF8D;
-  padding: 2rem 2rem;
-  max-width: 700px;
-  margin: 0 auto 3rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-  color: #4A3B2C;
-}
-
-.appFooter {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: #CFAF8D;
-  padding: 1.5rem 2rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #4A3B2C;
-  border-top: 1px solid #B4977B;
-}
-
-.socials {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-bottom: 1rem;
-}
-
-.socials a {
-  display: inline-block;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-  width: 40px;
-  height: 40px;
-}
-
-.socials a:hover {
-  opacity: 1;
-}
-
-.socials a img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-p {
-  font-size: 1.2rem;
-  color: #4A3B2C;
-}
-
-h2 {
-  font-size: 2.4rem;
-  color: #222222;
-}
-
-.skills-grid {
-  max-width: 700px;
-  margin: 40px auto;
-  border-radius: 12px;
-}
-
-.skill-category {
-  margin-bottom: 35px;
-}
-
-.skill-category h3 {
-  background-color: #87707a;
-  color: white;
-  margin-bottom: 12px;
-  border-left: 10px solid #6b4e5b;
-  padding-left: 10px;
-}
-
-.skill-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.skill-list li {
-  background-color: #ddded1;
-  color: black;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  cursor: default;
-}
-
-.aboutMe {
-  flex-direction: column;
+.main p {
+    margin-left: 20px;
+    font-size: 20px;
+    text-align: center;
+    max-width: 300px;
 }
