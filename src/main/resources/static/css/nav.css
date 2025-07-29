@@ -51,8 +51,7 @@
 .banner{
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 20%;
+    padding:40px;
     display: flex;
     background-image:
     url("../images/ff_14_world_map.jpg");
