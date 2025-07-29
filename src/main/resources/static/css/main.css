@@ -23,10 +23,6 @@ input[type=submit], input[type=reset], input[type=button], button{
     top: 40%;
 }
 
-.sortingForm{
-    margin-right: 30px;
-}
-
 input[type=submit]:disabled, input[type=reset]:disabled, input[type=button]:disabled{
     background-color: #C0C0C0;
 }
@@ -81,7 +77,7 @@ input[type=checkbox]:checked::after {
     transform: translate(-50%, -50%);
 }
 
-input[type=text], input[type=email], textArea{
+textArea{
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -91,7 +87,7 @@ input[type=text], input[type=email], textArea{
     outline: none;
 }
 
-input[type=text]:focus, input[type=email]:focus, textArea:focus {
+textArea:focus {
     border: 3px solid #555;
 }
 

@@ -3,15 +3,22 @@
     justify-content: center;
     align-items: flex-start;
     gap: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .formDiv{
     margin-top: 20px;
-    position: sticky;
-    position: -webkit-sticky;
+    position: static;
     top: 15;
-    z-index: 10;
     padding: 10px;
+}
+
+@media (min-width: 1500px) {
+  .formdiv {
+    position: sticky;
+    top: 0;
+  }
 }
 
 .logsWrapperPanel{
@@ -28,6 +35,10 @@
 .canvasPanel{
     margin-top: 20px;
     flex-shrink: 3;
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .logsPanel {
