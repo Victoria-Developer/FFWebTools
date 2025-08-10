@@ -1,10 +1,8 @@
 package app.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
 @Table(name = "areas")
 public class AreaEntity {
     @Id
@@ -12,6 +10,15 @@ public class AreaEntity {
     private String name;
     private String teleports;
     private String fileName;
+
+    public AreaEntity() {}
+
+    public AreaEntity(Integer id, String name, String teleports, String fileName) {
+        this.id = id;
+        this.name = name;
+        this.teleports = teleports;
+        this.fileName = fileName;
+    }
 
     public void setId(Integer id) {
         this.id = id;
