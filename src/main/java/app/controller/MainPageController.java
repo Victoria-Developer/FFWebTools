@@ -1,13 +1,18 @@
 package app.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainPageController {
 
-    @GetMapping("/")
-    public String home() {
-        return "home";
+    @RequestMapping("/")
+    public String root() {
+        return "index.csr.html";
+    }
+
+    @RequestMapping(value = "/{path:^(?!.*\\.).*$}")
+    public String noExtension() {
+        return "index.csr.html";
     }
 }

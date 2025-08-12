@@ -4,12 +4,9 @@ import app.dto.Area;
 import app.dto.Coordinate;
 import app.entities.AreaEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 @Service
 public class JsonConverter {
@@ -27,30 +24,7 @@ public class JsonConverter {
             }
             dto.setTeleports(teleports);
         } catch (JsonProcessingException ignored) {}
-        dto.setFileName(areaEntity.getFileName());
+        dto.setImgSrc(areaEntity.getFileName());
         return dto;
-    }
-
-    public String tspSolutionToJson(Map<Area, LinkedList<Coordinate>> orderedLogs) throws JsonProcessingException {
-        List<Object> result = new ArrayList<>();
-        for (Map.Entry<Area, LinkedList<Coordinate>> entry : orderedLogs.entrySet()) {
-            Map<String, Object> obj = new LinkedHashMap<>();
-            obj.put("areaName", entry.getKey().getName());
-            obj.put("areaFileName", entry.getKey().getFileName());
-            obj.put("logs", entry.getValue());
-            result.add(obj);
-        }
-        return objectMapper.writeValueAsString(result);
-    }
-
-    public String parsedLogsToJson(Map<String, List<Coordinate>> parsedLogs) throws JsonProcessingException {
-        List<Object> result = new ArrayList<>();
-        for (Map.Entry<String, List<Coordinate>> entry : parsedLogs.entrySet()) {
-            Map<String, Object> obj = new LinkedHashMap<>();
-            obj.put("areaName", entry.getKey());
-            obj.put("logs", entry.getValue());
-            result.add(obj);
-        }
-        return objectMapper.writeValueAsString(result);
     }
 }

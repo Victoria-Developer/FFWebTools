@@ -3,7 +3,7 @@ package app.dto;
 public class Area {
     String name;
     Coordinate[] teleports;
-    String fileName;
+    String imgSrc;
 
     public void setName(String name) {
         this.name = name;
@@ -21,11 +21,11 @@ public class Area {
         return teleports;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setImgSrc(String fileName) {
+        this.imgSrc = fileName;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getImgSrc() {
+        return imgSrc;
     }
 }
