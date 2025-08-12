@@ -5,11 +5,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Service
 public class LogsParser {
@@ -18,12 +16,12 @@ public class LogsParser {
     private record Point(double x, double y) {
     }
 
-    public Map<String, List<Coordinate>> parseLogs(String input) {
+    public List<Coordinate> parseLogs(String input) {
         return findValidSentences(input)
                 .stream()
                 .map(this::parseLog)
                 .filter(Objects::nonNull)
-                .collect(Collectors.groupingBy(Coordinate::getAreaName));
+                .toList();
     }
 
     private Coordinate parseLog(String validSentence) {
