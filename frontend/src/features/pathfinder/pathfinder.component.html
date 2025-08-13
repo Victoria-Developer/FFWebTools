@@ -1,0 +1,45 @@
+<div class="wrapper">
+    <div class="formDiv">
+        <form>
+            <div>
+            <p>Paste coordinates here:</p>
+            <div class="textAreaDiv">
+                <textarea class="chatLogs" #inputLogs (paste)="onPaste($event)" [(ngModel)]="userInput" name="inputLogs"></textarea>
+            </div>
+            </div>
+            <div class="formButtonsDiv">
+            <button type="button" class="submitButton" (click)="onCalculatePath()">Calculate</button>
+            <button type="button" class="resetButton" (click)="onReset()">Reset</button>
+            </div>
+            <p class="statusLabel" id="statusLabel">{{status}}</p>
+            <div class="logsWrapperPanel">
+                <div class="coordinatesPanel">
+                    <ul class="logsPanel">
+                        <p *ngIf="newLogs.length>0">New logs</p>
+                        <li class="logsLi" id="log" *ngFor="let log of newLogs">
+                            <input type="checkbox" checked="true" (click)="onToggleLog(log)">
+                            {{log.name}} ({{log.x}}, {{log.y}})
+                        </li>
+
+                        <li *ngFor="let entry of calculatedPath | keyvalue">
+                            <p>{{entry.key.name}}</p>
+                            <ul class="logsPanel">
+                                <li class="logsLi" id="orderedLog" *ngFor="let orderedLog of entry.value">
+                                    <input type="checkbox" checked="true" (click)="onToggleLog(orderedLog)" *ngIf="!orderedLog.teleport">
+                                    {{entry.value.indexOf(orderedLog) + 1}}. {{orderedLog.name}} ({{orderedLog.x}}, {{orderedLog.y}})
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>                
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="canvasPanel" class="canvasPanel">        
+        <app-map
+            *ngFor="let path of calculatedPath | keyvalue" 
+            [backgroundSrc]="'/images/areas' + path.key.imgSrc"
+            [logs]="path.value">
+        </app-map>
+    </div>
+</div>
