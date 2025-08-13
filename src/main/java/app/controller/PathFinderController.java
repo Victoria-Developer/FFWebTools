@@ -4,7 +4,7 @@ import app.dto.Area;
 import app.dto.Coordinate;
 import app.dto.TspResponse;
 import app.repository.AreaRepository;
-import app.service.JsonConverter;
+import app.service.Converter;
 import app.service.LogsParser;
 import app.service.Tsp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class PathFinderController {
     @Autowired
     private AreaRepository areaRepository;
     @Autowired
-    private JsonConverter converter;
+    private Converter converter;
     @Autowired
     private LogsParser logsParser;
     @Autowired
