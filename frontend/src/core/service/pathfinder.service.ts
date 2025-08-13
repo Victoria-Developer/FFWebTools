@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, retry, throwError } from "rxjs";
+import { catchError, delay, Observable, retry, throwError, timeout } from "rxjs";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
-import { Area, Coordinate, TspSolutionResponse } from '../../core/models/models';
+import { Coordinate, TspSolutionResponse } from '../../core/models/models';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class PathfinderService {
+    timeoutTime : number = 10000;
 
     constructor(private http: HttpClient) { }
 
     parseLogs(userInput: String): Observable<Coordinate[]>{
         return this.http.post<Coordinate[]>('/route/parse', { userInput }).pipe(
+            timeout(this.timeoutTime),
             retry(2),
             catchError((err: HttpErrorResponse) => this.handleError(err))
         );
@@ -21,6 +23,7 @@ export class PathfinderService {
 
     calculatePath(logs: Coordinate[]): Observable<TspSolutionResponse[]>{
         return this.http.post<TspSolutionResponse[]>('/route/calculate', { logs }).pipe(
+            timeout(this.timeoutTime),
             retry(2),
             catchError((err: HttpErrorResponse) => this.handleError(err))
         );

@@ -29,6 +29,8 @@
 
 .logsWrapperPanel{
     position: sticky;
+    display: flex;
+    justify-content: center;
 }
 
 .coordinatesPanel{
@@ -93,6 +95,8 @@
 .statusLabel {
     color: blue;
     padding-bottom: 5px;
+    max-width: 500px;
+    display: inline-flex;
 }
 
 .chatLogs{

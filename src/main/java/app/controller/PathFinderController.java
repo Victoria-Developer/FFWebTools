@@ -8,6 +8,8 @@ import app.service.Converter;
 import app.service.LogsParser;
 import app.service.Tsp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,26 +34,49 @@ public class PathFinderController {
 
     @PostMapping(value = "route/calculate", consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public List<TspResponse> calculatePath(@RequestBody Map<String, List<Coordinate>> body) {
+    public ResponseEntity<List<TspResponse>> calculatePath(@RequestBody Map<String, List<Coordinate>> body) {
+        // No logs found in the request body
+        List<Coordinate> logs = body.get("logs");
+        if (logs == null || logs.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Group logs by area name
+        Map<String, List<Coordinate>> groupedLogs = logs.stream()
+                .collect(Collectors.groupingBy(Coordinate::getAreaName));
+
         List<TspResponse> orderedLogs = new ArrayList<>();
 
-        Map<String, List<Coordinate>> groupedLogs 
-            = body.get("logs").stream().collect(Collectors.groupingBy(Coordinate::getAreaName));
-
+        // Solve TSP for each area
         groupedLogs.forEach((areaName, coordinates) ->
             areaRepository.findByName(areaName).ifPresent(areaEntity -> {
                 Area dto = converter.areaEntityToDto(areaEntity);
-                    LinkedList<Coordinate> tspSolution = tsp.solve(dto.getTeleports(), coordinates);
-                    orderedLogs.add(new TspResponse(dto, tspSolution));
+                LinkedList<Coordinate> tspSolution = tsp.solve(dto.getTeleports(), coordinates);
+                orderedLogs.add(new TspResponse(dto, tspSolution));
             })
         );
-        return orderedLogs;
+
+        HttpStatus status = orderedLogs.isEmpty()? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK;
+        return ResponseEntity
+                .status(status)
+                .body(orderedLogs);
     }
 
     @PostMapping(value = "route/parse", consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public List<Coordinate> parseLogs(@RequestBody Map<String, String> body) {
-        return logsParser.parseLogs(body.get("userInput"));
+    public ResponseEntity<List<Coordinate>> parseLogs(@RequestBody Map<String, String> body) {
+        // In-game chat logs input
+        String userInput = body.get("userInput");
+        if (userInput == null || userInput.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Parse logs to get only map coordinates
+        List<Coordinate> coordinates = logsParser.parseLogs(userInput);
+        HttpStatus status = coordinates.isEmpty()? HttpStatus.BAD_REQUEST : HttpStatus.OK;
+        return ResponseEntity
+                .status(status)
+                .body(coordinates);
     }
 
 }
