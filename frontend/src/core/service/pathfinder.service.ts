@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, delay, Observable, retry, throwError, timeout } from "rxjs";
+import { catchError, lastValueFrom,retry, throwError, timeout } from "rxjs";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 import { Coordinate, TspSolutionResponse } from '../../core/models/models';
@@ -13,30 +13,30 @@ export class PathfinderService {
 
     constructor(private http: HttpClient) { }
 
-    parseLogs(userInput: String): Observable<Coordinate[]>{
-        return this.http.post<Coordinate[]>('/route/parse', { userInput }).pipe(
+    parseLogs(userInput: String): Promise<Coordinate[]>{
+        return lastValueFrom(this.http.post<Coordinate[]>('/route/parse', { userInput }).pipe(
             timeout(this.timeoutTime),
             retry(2),
             catchError((err: HttpErrorResponse) => this.handleError(err))
-        );
+        ));
     }
 
-    calculatePath(logs: Coordinate[]): Observable<TspSolutionResponse[]>{
-        return this.http.post<TspSolutionResponse[]>('/route/calculate', { logs }).pipe(
+    calculatePath(logs: Coordinate[]): Promise<TspSolutionResponse[]> {
+        return lastValueFrom(
+            this.http.post<TspSolutionResponse[]>('/route/calculate', { logs: logs }).pipe(
             timeout(this.timeoutTime),
             retry(2),
             catchError((err: HttpErrorResponse) => this.handleError(err))
+            )
         );
     }
 
     private handleError(error: HttpErrorResponse) {
-        console.error('Error occurred:', error);
-
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {
             errorMessage = `Client error: ${error.error.message}`;
         } else {
-            errorMessage = `Server error ${error.status}: ${error.message}`;
+            errorMessage = `Server error ${error.status}`;
         }
 
         return throwError(() => new Error(errorMessage));

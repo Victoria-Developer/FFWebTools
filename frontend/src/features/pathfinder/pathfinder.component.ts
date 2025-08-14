@@ -19,48 +19,39 @@ export class PathfinderComponent {
   status: String = ""; // Parsing, calculating path, errors status
   
   logs: Coordinate[] = []; // All logs (ordered and not ordered)
-  newLogs: Coordinate[] = []; // Parsed, not ordered
   uncheckedLogs: Coordinate[] = []; // Candidates to be removed from all logs
   
   calculatedPath: Map<Area, Coordinate[]> = new Map(); // Tsp solution
 
   constructor(private pathfinderService: PathfinderService) {}
 
-  onParseLogs(input: string) {
-    this.status = "Parsing logs...";
-    this.pathfinderService.parseLogs(input).subscribe({
-      next: logs => {
+  async onCalculatePath() {
+    try{
+      // Parse logs if use input isn't empty
+      if(this.userInput){
+        this.status = "Parsing logs...";
+        var input = this.userInput;
+        this.userInput = "";
+        const logs = await this.pathfinderService.parseLogs(input);
         this.status = "Logs are parsed.";
-        this.newLogs.push(...logs);
-        this.logs.push(...logs);
-      },
-      error: err => {
-        //console.error('Error parsing logs:', err);
-        this.status = `Error: ${err.message}`;
+        this.logs.push(...logs);         
       }
-    });
-  }
 
-  onCalculatePath() {
-    this.status = "Calculating path...";
-    // Remove all unchecked logs
-    this.logs = this.logs.filter((log)=> !this.uncheckedLogs.some(
-      unchecked => this.getLogInfo(unchecked) === this.getLogInfo(log)
-    ));
+      // Remove all unchecked logs
+      this.logs = this.logs.filter((log)=> !this.uncheckedLogs.some(
+        unchecked => this.getLogInfo(unchecked) === this.getLogInfo(log)
+      ));
 
-    this.pathfinderService.calculatePath(this.logs).subscribe({
-      next: path=>{
+      // Calculate path
+      this.status = "Calculating path...";
+      const tspResponse = await this.pathfinderService.calculatePath(this.logs);
       this.status = "Path is calculated.";
-      this.newLogs = [];
       this.uncheckedLogs = [];
       this.calculatedPath = new Map();
-      path.forEach(item => this.calculatedPath.set(item.area, item.solution));
-      },
-      error: err => {
-        //console.error('Error parsing logs:', err);
-        this.status = `Error: ${err.message}`;
-      }    
-    });
+      tspResponse.forEach(response => this.calculatedPath.set(response.area, response.solution));  
+    } catch(error: any){
+      this.status = `Error: ${error.message}`;
+    }
   }
 
   getLogInfo(log: Coordinate): string {
@@ -77,19 +68,9 @@ export class PathfinderComponent {
     }
   }
 
-  // On copypaste to the text field
-  onPaste(event: ClipboardEvent) {
-    event.preventDefault();
-    const pastedText = event.clipboardData?.getData('text') ?? '';
-    if(pastedText){
-      this.onParseLogs(pastedText);
-    }
-  }
-
   onReset(){
     this.status = "";
     this.userInput = "";
-    this.newLogs = [];
     this.uncheckedLogs = [];
     this.logs = [];
     this.calculatedPath = new Map();

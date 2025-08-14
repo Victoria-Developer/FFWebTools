@@ -5,13 +5,25 @@ body{
     font: 1.2rem/1.4 Georgia, serif;
 }
 
-input[type=submit], input[type=reset], input[type=button], button{
+button{
     color: white;
     cursor: pointer;
-    padding: 7px 10px;
+    padding: 7px 15px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
+    width: 95px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+button:disabled{
+    background-color: #C0C0C0;
+}
+
+button:hover:disabled{
+    background-color: #C0C0C0;
 }
 
 .formsClass{
@@ -21,14 +33,6 @@ input[type=submit], input[type=reset], input[type=button], button{
     align-items: center;
     justify-content: center;
     top: 40%;
-}
-
-input[type=button]:disabled{
-    background-color: #C0C0C0;
-}
-
-input[type=button]:hover:disabled{
-    background-color: #C0C0C0;
 }
 
 .submitButton {
@@ -85,6 +89,8 @@ textArea{
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
+    width: 300px;
+    height: 200px;
 }
 
 textArea:focus {

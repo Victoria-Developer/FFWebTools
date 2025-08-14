@@ -4,7 +4,7 @@
             <div>
             <p>Paste coordinates here:</p>
             <div class="textAreaDiv">
-                <textarea class="chatLogs" #inputLogs (paste)="onPaste($event)" [(ngModel)]="userInput" name="inputLogs"></textarea>
+                <textarea class="chatLogs" #inputLogs [(ngModel)]="userInput" name="inputLogs"></textarea>
             </div>
             </div>
             <div class="formButtonsDiv">
@@ -15,12 +15,6 @@
             <div class="logsWrapperPanel">
                 <div class="coordinatesPanel">
                     <ul class="logsPanel">
-                        <p *ngIf="newLogs.length>0">New logs</p>
-                        <li class="logsLi" id="log" *ngFor="let log of newLogs">
-                            <input type="checkbox" checked="true" (click)="onToggleLog(log)">
-                            {{log.name}} ({{log.x}}, {{log.y}})
-                        </li>
-
                         <li *ngFor="let entry of calculatedPath | keyvalue">
                             <p>{{entry.key.name}}</p>
                             <ul class="logsPanel">
