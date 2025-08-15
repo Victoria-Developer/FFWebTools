@@ -29,11 +29,13 @@
             </div>
         </form>
     </div>
-    <div id="canvasPanel" class="canvasPanel">        
-        <app-map
-            *ngFor="let path of calculatedPath | keyvalue" 
-            [backgroundSrc]="'/images/areas' + path.key.imgSrc"
-            [logs]="path.value">
-        </app-map>
+    <div id="canvasPanel" class="canvasPanel">
+        <div *ngFor="let path of calculatedPath | keyvalue">
+            <p>{{path.key.name}}</p>        
+            <app-map
+                [backgroundSrc]="'/images/areas' + path.key.imgSrc"
+                [logs]="path.value">
+            </app-map>
+        </div>
     </div>
 </div>

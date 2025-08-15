@@ -27,25 +27,26 @@ export class PathfinderComponent {
 
   async onCalculatePath() {
     try{
-      // Parse logs if use input isn't empty
-      if(this.userInput){
+      var currentLogs: Coordinate[] = [];
+      if(this.userInput){ // Parse logs if user input isn't empty
         this.status = "Parsing logs...";
         var input = this.userInput;
         this.userInput = "";
-        const logs = await this.pathfinderService.parseLogs(input);
-        this.status = "Logs are parsed.";
-        this.logs.push(...logs);         
+        var newLogs = await this.pathfinderService.parseLogs(input); 
+        currentLogs = this.filterSameLogs(this.logs, newLogs); // Check for duplicates
+        if(currentLogs.length == 0){
+          this.status = "No new logs detected.";
+          return;
+        }
       }
 
-      // Remove all unchecked logs
-      this.logs = this.logs.filter((log)=> !this.uncheckedLogs.some(
-        unchecked => this.getLogInfo(unchecked) === this.getLogInfo(log)
-      ));
+      currentLogs.push(...this.logs);
+      currentLogs = this.filterSameLogs(this.uncheckedLogs, currentLogs); // Remove all unchecked logs
 
-      // Calculate path
       this.status = "Calculating path...";
-      const tspResponse = await this.pathfinderService.calculatePath(this.logs);
+      const tspResponse = await this.pathfinderService.calculatePath(currentLogs); // Calculate path
       this.status = "Path is calculated.";
+      this.logs = currentLogs;     
       this.uncheckedLogs = [];
       this.calculatedPath = new Map();
       tspResponse.forEach(response => this.calculatedPath.set(response.area, response.solution));  
@@ -54,7 +55,13 @@ export class PathfinderComponent {
     }
   }
 
-  getLogInfo(log: Coordinate): string {
+  filterSameLogs(logsFrom: Coordinate[] , logsTo: Coordinate[] ): Coordinate[] {
+    return logsTo.filter((logTo)=> !logsFrom.some(
+        logFrom => this.getLogInfo(logFrom) === this.getLogInfo(logTo)
+      ));
+  }
+
+  getLogInfo(log: Coordinate):String {
     return log.name + log.areaName + log.x + log.y;
   }
 

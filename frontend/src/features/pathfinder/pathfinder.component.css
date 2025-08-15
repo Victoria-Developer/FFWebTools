@@ -8,16 +8,14 @@
 }
 
 .formDiv{
-    margin-top: 20px;
     position: static;
-    top: 15;
     padding: 10px;
 }
 
-@media (min-width: 1500px) {
-    .formdiv {
+@media (min-width:1400px) {
+    .formDiv {
         position: sticky;
-        top: 0;
+        top: 60px;
     }
 }
 
@@ -28,7 +26,6 @@
 }
 
 .logsWrapperPanel{
-    position: sticky;
     display: flex;
     justify-content: center;
 }
@@ -37,7 +34,7 @@
     display:flex;
     flex-flow: column;
     overflow: auto;
-    height: 50vh;
+    height: 45vh;
 }
 
 .canvasPanel{

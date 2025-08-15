@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
+    "postbuild": "rmdir /S /Q \"..\\src\\main\\resources\\static\" && mkdir \"..\\src\\main\\resources\\static\" && xcopy /s \".\\dist\\frontend\\browser\\*\" \"..\\src\\main\\resources\\static\" /Y",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs"
